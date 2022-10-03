@@ -1,10 +1,12 @@
 const express = require('express')
 
 const {router} = require('./routes/routes')
+const {serverInit} = require('./database/db')
 
 const app = express()
 
-
+// Conectando com a Database
+serverInit()
 
 // Configurando rotas
 app.use('/', router)

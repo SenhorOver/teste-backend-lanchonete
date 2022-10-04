@@ -113,4 +113,32 @@ header.hrheader a {
     opacity: 1;
     top: 100%;
   }
+}
+main.mnMainContent {
+  padding: 100px 400px;
+}
+main.mnMainContent section.topContent div.intro {
+  padding: 0 100px;
+}
+main.mnMainContent section.topContent div.intro h2.title {
+  text-align: center;
+  font-size: 2.5em;
+  font-weight: 100;
+  margin-bottom: 35px;
+}
+main.mnMainContent section.topContent div.intro p.subtitle {
+  font-weight: 500;
+  font-size: 1.3em;
+  word-spacing: 0.3em;
+  text-align: justify;
+  margin-bottom: 35px;
+}
+main.mnMainContent section.topContent div.img img {
+  width: 100%;
+}
+
+footer.ftfooter {
+  text-align: center;
+  padding: 50px 0;
+  background-color: rgb(209, 209, 209);
 }/*# sourceMappingURL=style.css.map */

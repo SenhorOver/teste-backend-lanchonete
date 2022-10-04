@@ -15,7 +15,7 @@ async function get(req, res){
     })
 }
 
-async function post(req, res){
+function post(req, res){
     const {
         name,
         email,
@@ -37,12 +37,33 @@ async function post(req, res){
     })
 }
 
+async function put(req, res){
+    const {id} = req.params
 
+    const clientEdited = await ClientModel.findOneAndUpdate({_id: id}, req.body, {new: true})
+
+    res.send({
+        message: 'success',
+        clientEdited,
+    })
+}
+
+async function del(req, res){
+    const {id} = req.params
+
+    const deleted = await ClientModel.deleteOne({_id: id})
+
+    const msg = deleted.acknowledged ? 'success' : 'error'
+
+    res.send({
+        message: msg
+    })
+}
 
 
 module.exports = {
     get,
     post,
-    // put,
-    // del
+    put,
+    del
 }

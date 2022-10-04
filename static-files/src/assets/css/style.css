@@ -25,10 +25,14 @@ header.hrheader nav.navbar ul.menu {
   align-items: center;
   font-size: 1em;
 }
-header.hrheader nav.navbar ul.menu li {
-  height: 45px;
+header.hrheader nav.navbar ul.menu a:hover {
+  color: grey;
 }
-header.hrheader nav.navbar ul.menu li a {
+header.hrheader nav.navbar ul.menu > li {
+  height: 45px;
+  position: relative;
+}
+header.hrheader nav.navbar ul.menu > li a {
   display: block;
   margin: 0 10px;
   padding: 0 15px;
@@ -36,18 +40,77 @@ header.hrheader nav.navbar ul.menu li a {
   font-weight: 900;
   display: flex;
   align-items: center;
+  transition: color 250ms ease;
 }
-header.hrheader nav.navbar ul.menu li:last-child a {
+header.hrheader nav.navbar ul.menu > li ul.submenu {
+  display: none;
+  position: absolute;
+  list-style: none;
+  box-shadow: 0 0 4px rgb(202, 202, 202);
+  padding: 10px 0;
+  min-width: 100%;
+  -webkit-animation: menuDropDown 150ms ease 0ms 1 normal;
+          animation: menuDropDown 150ms ease 0ms 1 normal;
+}
+header.hrheader nav.navbar ul.menu > li ul.submenu li {
+  padding: 5px 0;
+}
+header.hrheader nav.navbar ul.menu > li:first-child a {
+  background-color: black;
+  color: white;
+}
+header.hrheader nav.navbar ul.menu > li:hover ul.submenu {
+  display: block;
+}
+header.hrheader nav.navbar ul.menu > li:last-child a {
+  position: relative;
   height: 100%;
   padding: 0 15px;
   display: flex;
   align-items: center;
 }
-header.hrheader nav.navbar ul.menu li:last-child a img {
-  width: 25px;
+header.hrheader nav.navbar ul.menu > li:last-child a img {
+  width: 28px;
   height: 25px;
+}
+header.hrheader nav.navbar ul.menu > li:last-child a span {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 12px;
+  font-weight: 100;
+  height: 20px;
+  width: 20px;
+  border-radius: 50%;
+  background-color: black;
+  position: absolute;
+  right: 7px;
+  top: 7px;
 }
 header.hrheader a {
   text-decoration: none;
-  color: #1d2021;
+  color: #3f3d3d;
+}
+
+@-webkit-keyframes menuDropDown {
+  0% {
+    opacity: 0;
+    top: 150%;
+  }
+  100% {
+    opacity: 1;
+    top: 100%;
+  }
+}
+
+@keyframes menuDropDown {
+  0% {
+    opacity: 0;
+    top: 150%;
+  }
+  100% {
+    opacity: 1;
+    top: 100%;
+  }
 }/*# sourceMappingURL=style.css.map */

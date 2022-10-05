@@ -8,12 +8,20 @@ body {
   font-family: arial;
 }
 
+.none {
+  display: none;
+}
+
 header.hrheader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 50px;
   height: 75px;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 header.hrheader h1.title {
   font-weight: bolder;
@@ -41,6 +49,10 @@ header.hrheader nav.navbar ul.menu > li a {
   display: flex;
   align-items: center;
   transition: color 250ms ease;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
 }
 header.hrheader nav.navbar ul.menu > li ul.submenu {
   display: none;
@@ -58,6 +70,7 @@ header.hrheader nav.navbar ul.menu > li ul.submenu li {
 header.hrheader nav.navbar ul.menu > li:first-child a {
   background-color: black;
   color: white;
+  border-radius: 10px;
 }
 header.hrheader nav.navbar ul.menu > li:hover ul.submenu {
   display: block;
@@ -135,6 +148,37 @@ main.mnMainContent section.topContent div.intro p.subtitle {
 }
 main.mnMainContent section.topContent div.img img {
   width: 100%;
+}
+main.mnMainContent div.lgLogin {
+  border: 2px solid black;
+  border-radius: 15px;
+  padding: 25px;
+  text-align: center;
+}
+main.mnMainContent div.lgLogin h2.title {
+  font-size: 2em;
+}
+main.mnMainContent div.lgLogin form {
+  padding: 25px 0 0;
+}
+main.mnMainContent div.lgLogin form div {
+  margin: 0 0 15px;
+}
+main.mnMainContent div.lgLogin form div label {
+  display: block;
+  margin-bottom: 5px;
+}
+main.mnMainContent div.lgLogin form div input {
+  padding: 5px;
+  font-size: 1em;
+  width: 50%;
+}
+main.mnMainContent div.lgLogin form div button {
+  cursor: pointer;
+  margin-top: 5px;
+  font-size: 1em;
+  width: 25%;
+  padding: 5px;
 }
 
 footer.ftfooter {

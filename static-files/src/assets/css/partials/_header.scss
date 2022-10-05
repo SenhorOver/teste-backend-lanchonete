@@ -4,6 +4,7 @@ header.hrheader{
     align-items: center;
     padding: 0 50px;
     height: 75px;
+    user-select: none;
 
     h1.title{
         font-weight: bolder;
@@ -33,6 +34,7 @@ header.hrheader{
                     display: flex;
                     align-items: center;
                     transition: color 250ms ease;
+                    user-select: none;
                 }
 
                 & ul.submenu{
@@ -53,6 +55,7 @@ header.hrheader{
                     a{
                         background-color: black;
                         color: white;
+                        border-radius: 10px;
                     }
                 }
 

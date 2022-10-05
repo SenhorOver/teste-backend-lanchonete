@@ -2,6 +2,57 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/modules/registerClient.js":
+/*!***************************************!*\
+  !*** ./src/modules/registerClient.js ***!
+  \***************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var formClient = document.querySelector('#formClient');
+var msg = document.querySelector('#clientOk');
+var divClient = document.querySelector('.lgLogin');
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  formClient.addEventListener('submit', function (e) {
+    e.preventDefault();
+    var name = document.forms['formClient'].name.value;
+    var email = document.forms['formClient'].email.value;
+    var phone = document.forms['formClient'].phone.value;
+    var address = document.forms['formClient'].address.value;
+
+    if (name && email && phone && address) {
+      fetch('http://localhost:8080/api/client', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          name: name,
+          email: email,
+          phone: phone,
+          address: address
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        if (data.message === 'success') {
+          formClient.reset();
+          divClient.classList.add('none');
+          msg.classList.remove('none');
+          return;
+        }
+
+        alert('Ocorreu um erro');
+      });
+    }
+  });
+});
+
+/***/ }),
+
 /***/ "./node_modules/css-loader/dist/cjs.js!./src/assets/css/style.css":
 /*!************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js!./src/assets/css/style.css ***!
@@ -21,7 +72,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  font-family: arial;\n}\n\nheader.hrheader {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0 50px;\n  height: 75px;\n}\nheader.hrheader h1.title {\n  font-weight: bolder;\n  font-size: 2.6em;\n}\nheader.hrheader nav.navbar ul.menu {\n  list-style: none;\n  display: flex;\n  align-items: center;\n  font-size: 1em;\n}\nheader.hrheader nav.navbar ul.menu a:hover {\n  color: grey;\n}\nheader.hrheader nav.navbar ul.menu > li {\n  height: 45px;\n  position: relative;\n}\nheader.hrheader nav.navbar ul.menu > li a {\n  display: block;\n  margin: 0 10px;\n  padding: 0 15px;\n  height: 100%;\n  font-weight: 900;\n  display: flex;\n  align-items: center;\n  transition: color 250ms ease;\n}\nheader.hrheader nav.navbar ul.menu > li ul.submenu {\n  display: none;\n  position: absolute;\n  list-style: none;\n  box-shadow: 0 0 4px rgb(202, 202, 202);\n  padding: 10px 0;\n  min-width: 100%;\n  -webkit-animation: menuDropDown 150ms ease 0ms 1 normal;\n          animation: menuDropDown 150ms ease 0ms 1 normal;\n}\nheader.hrheader nav.navbar ul.menu > li ul.submenu li {\n  padding: 5px 0;\n}\nheader.hrheader nav.navbar ul.menu > li:first-child a {\n  background-color: black;\n  color: white;\n}\nheader.hrheader nav.navbar ul.menu > li:hover ul.submenu {\n  display: block;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a {\n  position: relative;\n  height: 100%;\n  padding: 0 15px;\n  display: flex;\n  align-items: center;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a img {\n  width: 28px;\n  height: 25px;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a span {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: white;\n  font-size: 12px;\n  font-weight: 100;\n  height: 20px;\n  width: 20px;\n  border-radius: 50%;\n  background-color: black;\n  position: absolute;\n  right: 7px;\n  top: 7px;\n}\nheader.hrheader a {\n  text-decoration: none;\n  color: #3f3d3d;\n}\n\n@-webkit-keyframes menuDropDown {\n  0% {\n    opacity: 0;\n    top: 150%;\n  }\n  100% {\n    opacity: 1;\n    top: 100%;\n  }\n}\n\n@keyframes menuDropDown {\n  0% {\n    opacity: 0;\n    top: 150%;\n  }\n  100% {\n    opacity: 1;\n    top: 100%;\n  }\n}\nmain.mnMainContent {\n  padding: 100px 400px;\n}\nmain.mnMainContent section.topContent div.intro {\n  padding: 0 100px;\n}\nmain.mnMainContent section.topContent div.intro h2.title {\n  text-align: center;\n  font-size: 2.5em;\n  font-weight: 100;\n  margin-bottom: 35px;\n}\nmain.mnMainContent section.topContent div.intro p.subtitle {\n  font-weight: 500;\n  font-size: 1.3em;\n  word-spacing: 0.3em;\n  text-align: justify;\n  margin-bottom: 35px;\n}\nmain.mnMainContent section.topContent div.img img {\n  width: 100%;\n}\n\nfooter.ftfooter {\n  text-align: center;\n  padding: 50px 0;\n  background-color: rgb(209, 209, 209);\n}/*# sourceMappingURL=style.css.map */", "",{"version":3,"sources":["webpack://./src/assets/css/partials/_commons.scss","webpack://./src/assets/css/style.css","webpack://./src/assets/css/partials/_header.scss","webpack://./src/assets/css/partials/_animations.scss","webpack://./src/assets/css/partials/_main.scss","webpack://./src/assets/css/partials/_footer.scss"],"names":[],"mappings":"AAAA;EACI,SAAA;EACA,UAAA;EACA,sBAAA;ACCJ;;ADGA;EACI,kBAAA;ACAJ;;ACRA;EACI,aAAA;EACA,8BAAA;EACA,mBAAA;EACA,eAAA;EACA,YAAA;ADWJ;ACTI;EACI,mBAAA;EACA,gBAAA;ADWR;ACPQ;EACI,gBAAA;EACA,aAAA;EACA,mBAAA;EACA,cAAA;ADSZ;ACPY;EACI,WAAA;ADShB;ACNY;EACI,YAAA;EACA,kBAAA;ADQhB;ACPgB;EACI,cAAA;EACA,cAAA;EACA,eAAA;EACA,YAAA;EACA,gBAAA;EACA,aAAA;EACA,mBAAA;EACA,4BAAA;ADSpB;ACNgB;EACI,aAAA;EACA,kBAAA;EACA,gBAAA;EACA,sCAAA;EACA,eAAA;EACA,eAAA;EACA,uDAAA;UAAA,+CAAA;ADQpB;ACNoB;EACI,cAAA;ADQxB;ACHoB;EACI,uBAAA;EACA,YAAA;ADKxB;ACDgB;EACI,cAAA;ADGpB;ACCoB;EACI,kBAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,mBAAA;ADCxB;ACCwB;EACI,WAAA;EACA,YAAA;ADC5B;ACEwB;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,YAAA;EACA,eAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;EACA,kBAAA;EACA,uBAAA;EACA,kBAAA;EACA,UAAA;EACA,QAAA;ADA5B;ACSI;EACI,qBAAA;EACA,cAAA;ADPR;;AE5FA;EACI;IACI,UAAA;IACA,SAAA;EF+FN;EE5FE;IACI,UAAA;IACA,SAAA;EF8FN;AACF;;AEvGA;EACI;IACI,UAAA;IACA,SAAA;EF+FN;EE5FE;IACI,UAAA;IACA,SAAA;EF8FN;AACF;AGvGA;EACI,oBAAA;AHyGJ;AGtGQ;EACI,gBAAA;AHwGZ;AGvGY;EACI,kBAAA;EACA,gBAAA;EACA,gBAAA;EACA,mBAAA;AHyGhB;AGtGY;EACI,gBAAA;EACA,gBAAA;EACA,mBAAA;EACA,mBAAA;EACA,mBAAA;AHwGhB;AGnGY;EACI,WAAA;AHqGhB;;AI7HA;EACI,kBAAA;EACA,eAAA;EACA,oCAAA;AJgIJ,CAAA,oCAAA","sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  font-family: arial;\n}\n\n.none {\n  display: none;\n}\n\nheader.hrheader {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  padding: 0 50px;\n  height: 75px;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\nheader.hrheader h1.title {\n  font-weight: bolder;\n  font-size: 2.6em;\n}\nheader.hrheader nav.navbar ul.menu {\n  list-style: none;\n  display: flex;\n  align-items: center;\n  font-size: 1em;\n}\nheader.hrheader nav.navbar ul.menu a:hover {\n  color: grey;\n}\nheader.hrheader nav.navbar ul.menu > li {\n  height: 45px;\n  position: relative;\n}\nheader.hrheader nav.navbar ul.menu > li a {\n  display: block;\n  margin: 0 10px;\n  padding: 0 15px;\n  height: 100%;\n  font-weight: 900;\n  display: flex;\n  align-items: center;\n  transition: color 250ms ease;\n  -webkit-user-select: none;\n     -moz-user-select: none;\n      -ms-user-select: none;\n          user-select: none;\n}\nheader.hrheader nav.navbar ul.menu > li ul.submenu {\n  display: none;\n  position: absolute;\n  list-style: none;\n  box-shadow: 0 0 4px rgb(202, 202, 202);\n  padding: 10px 0;\n  min-width: 100%;\n  -webkit-animation: menuDropDown 150ms ease 0ms 1 normal;\n          animation: menuDropDown 150ms ease 0ms 1 normal;\n}\nheader.hrheader nav.navbar ul.menu > li ul.submenu li {\n  padding: 5px 0;\n}\nheader.hrheader nav.navbar ul.menu > li:first-child a {\n  background-color: black;\n  color: white;\n  border-radius: 10px;\n}\nheader.hrheader nav.navbar ul.menu > li:hover ul.submenu {\n  display: block;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a {\n  position: relative;\n  height: 100%;\n  padding: 0 15px;\n  display: flex;\n  align-items: center;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a img {\n  width: 28px;\n  height: 25px;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a span {\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  color: white;\n  font-size: 12px;\n  font-weight: 100;\n  height: 20px;\n  width: 20px;\n  border-radius: 50%;\n  background-color: black;\n  position: absolute;\n  right: 7px;\n  top: 7px;\n}\nheader.hrheader a {\n  text-decoration: none;\n  color: #3f3d3d;\n}\n\n@-webkit-keyframes menuDropDown {\n  0% {\n    opacity: 0;\n    top: 150%;\n  }\n  100% {\n    opacity: 1;\n    top: 100%;\n  }\n}\n\n@keyframes menuDropDown {\n  0% {\n    opacity: 0;\n    top: 150%;\n  }\n  100% {\n    opacity: 1;\n    top: 100%;\n  }\n}\nmain.mnMainContent {\n  padding: 100px 400px;\n}\nmain.mnMainContent section.topContent div.intro {\n  padding: 0 100px;\n}\nmain.mnMainContent section.topContent div.intro h2.title {\n  text-align: center;\n  font-size: 2.5em;\n  font-weight: 100;\n  margin-bottom: 35px;\n}\nmain.mnMainContent section.topContent div.intro p.subtitle {\n  font-weight: 500;\n  font-size: 1.3em;\n  word-spacing: 0.3em;\n  text-align: justify;\n  margin-bottom: 35px;\n}\nmain.mnMainContent section.topContent div.img img {\n  width: 100%;\n}\nmain.mnMainContent div.lgLogin {\n  border: 2px solid black;\n  border-radius: 15px;\n  padding: 25px;\n  text-align: center;\n}\nmain.mnMainContent div.lgLogin h2.title {\n  font-size: 2em;\n}\nmain.mnMainContent div.lgLogin form {\n  padding: 25px 0 0;\n}\nmain.mnMainContent div.lgLogin form div {\n  margin: 0 0 15px;\n}\nmain.mnMainContent div.lgLogin form div label {\n  display: block;\n  margin-bottom: 5px;\n}\nmain.mnMainContent div.lgLogin form div input {\n  padding: 5px;\n  font-size: 1em;\n  width: 50%;\n}\nmain.mnMainContent div.lgLogin form div button {\n  cursor: pointer;\n  margin-top: 5px;\n  font-size: 1em;\n  width: 25%;\n  padding: 5px;\n}\n\nfooter.ftfooter {\n  text-align: center;\n  padding: 50px 0;\n  background-color: rgb(209, 209, 209);\n}/*# sourceMappingURL=style.css.map */", "",{"version":3,"sources":["webpack://./src/assets/css/partials/_commons.scss","webpack://./src/assets/css/style.css","webpack://./src/assets/css/partials/_header.scss","webpack://./src/assets/css/partials/_animations.scss","webpack://./src/assets/css/partials/_main.scss","webpack://./src/assets/css/partials/_footer.scss"],"names":[],"mappings":"AAAA;EACI,SAAA;EACA,UAAA;EACA,sBAAA;ACCJ;;ADGA;EACI,kBAAA;ACAJ;;ADGA;EACI,aAAA;ACAJ;;ACZA;EACI,aAAA;EACA,8BAAA;EACA,mBAAA;EACA,eAAA;EACA,YAAA;EACA,yBAAA;KAAA,sBAAA;MAAA,qBAAA;UAAA,iBAAA;ADeJ;ACbI;EACI,mBAAA;EACA,gBAAA;ADeR;ACXQ;EACI,gBAAA;EACA,aAAA;EACA,mBAAA;EACA,cAAA;ADaZ;ACXY;EACI,WAAA;ADahB;ACVY;EACI,YAAA;EACA,kBAAA;ADYhB;ACXgB;EACI,cAAA;EACA,cAAA;EACA,eAAA;EACA,YAAA;EACA,gBAAA;EACA,aAAA;EACA,mBAAA;EACA,4BAAA;EACA,yBAAA;KAAA,sBAAA;MAAA,qBAAA;UAAA,iBAAA;ADapB;ACVgB;EACI,aAAA;EACA,kBAAA;EACA,gBAAA;EACA,sCAAA;EACA,eAAA;EACA,eAAA;EACA,uDAAA;UAAA,+CAAA;ADYpB;ACVoB;EACI,cAAA;ADYxB;ACPoB;EACI,uBAAA;EACA,YAAA;EACA,mBAAA;ADSxB;ACLgB;EACI,cAAA;ADOpB;ACHoB;EACI,kBAAA;EACA,YAAA;EACA,eAAA;EACA,aAAA;EACA,mBAAA;ADKxB;ACHwB;EACI,WAAA;EACA,YAAA;ADK5B;ACFwB;EACI,aAAA;EACA,mBAAA;EACA,uBAAA;EACA,YAAA;EACA,eAAA;EACA,gBAAA;EACA,YAAA;EACA,WAAA;EACA,kBAAA;EACA,uBAAA;EACA,kBAAA;EACA,UAAA;EACA,QAAA;ADI5B;ACKI;EACI,qBAAA;EACA,cAAA;ADHR;;AEnGA;EACI;IACI,UAAA;IACA,SAAA;EFsGN;EEnGE;IACI,UAAA;IACA,SAAA;EFqGN;AACF;;AE9GA;EACI;IACI,UAAA;IACA,SAAA;EFsGN;EEnGE;IACI,UAAA;IACA,SAAA;EFqGN;AACF;AG9GA;EACI,oBAAA;AHgHJ;AG7GQ;EACI,gBAAA;AH+GZ;AG9GY;EACI,kBAAA;EACA,gBAAA;EACA,gBAAA;EACA,mBAAA;AHgHhB;AG7GY;EACI,gBAAA;EACA,gBAAA;EACA,mBAAA;EACA,mBAAA;EACA,mBAAA;AH+GhB;AG1GY;EACI,WAAA;AH4GhB;AGvGI;EACI,uBAAA;EACA,mBAAA;EACA,aAAA;EACA,kBAAA;AHyGR;AGxGQ;EACI,cAAA;AH0GZ;AGxGQ;EACI,iBAAA;AH0GZ;AGzGY;EACI,gBAAA;AH2GhB;AG1GgB;EACI,cAAA;EACA,kBAAA;AH4GpB;AGzGgB;EACI,YAAA;EACA,cAAA;EACA,UAAA;AH2GpB;AGxGgB;EACI,eAAA;EACA,eAAA;EACA,cAAA;EACA,UAAA;EACA,YAAA;AH0GpB;;AInKA;EACI,kBAAA;EACA,eAAA;EACA,oCAAA;AJsKJ,CAAA,oCAAA","sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -610,8 +661,14 @@ var __webpack_exports__ = {};
   !*** ./src/main.js ***!
   \*********************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./assets/css/style.css */ "./src/assets/css/style.css");
+/* harmony import */ var _modules_registerClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/registerClient */ "./src/modules/registerClient.js");
+/* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/css/style.css */ "./src/assets/css/style.css");
 
+
+
+try {
+  (0,_modules_registerClient__WEBPACK_IMPORTED_MODULE_0__["default"])();
+} catch (e) {}
 })();
 
 /******/ })()

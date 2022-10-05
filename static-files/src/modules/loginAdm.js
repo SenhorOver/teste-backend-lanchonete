@@ -3,26 +3,21 @@ const mainContent = document.querySelector('.mainContent')
 
 export default () => {
     formLogin.addEventListener('submit', e => {
-        const name = document.forms['formLogin'].name.value
-        const _id = document.forms['formLogin']._id.value
-
         e.preventDefault()
-        fetch('http://localhost:8080/api/adm', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-                name,
-                _id
-            })
+        const name = document.forms['formLogin'].name.value
+        const id = document.forms['formLogin'].id.value
+
+        fetch(`http://localhost:8080/api/adm/${id}`, {
+            method: 'POST'
         })
         .then(response => response.json())
         .then(data => {
-            if(data){
-                return mainContent.innerHTML = data
+            if(data.name !== 'CastError'){
+                console.log(data)
+            } else{
+                console.log('error')
             }
-            return mainContent.innerHTML = 'Error'
         })
+        .catch(e => alert('Senha errada'))
     })
 }

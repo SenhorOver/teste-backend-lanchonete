@@ -16,26 +16,21 @@ var formLogin = document.querySelector('#formLogin');
 var mainContent = document.querySelector('.mainContent');
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
   formLogin.addEventListener('submit', function (e) {
-    var name = document.forms['formLogin'].name.value;
-    var _id = document.forms['formLogin']._id.value;
     e.preventDefault();
-    fetch('http://localhost:8080/api/adm', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        name: name,
-        _id: _id
-      })
+    var name = document.forms['formLogin'].name.value;
+    var id = document.forms['formLogin'].id.value;
+    fetch("http://localhost:8080/api/adm/".concat(id), {
+      method: 'POST'
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
-      if (data) {
-        return mainContent.innerHTML = data;
+      if (data.name !== 'CastError') {
+        console.log(data);
+      } else {
+        console.log('error');
       }
-
-      return mainContent.innerHTML = 'Error';
+    })["catch"](function (e) {
+      return alert('Senha errada');
     });
   });
 });

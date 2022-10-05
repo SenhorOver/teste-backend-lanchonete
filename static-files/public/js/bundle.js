@@ -2,6 +2,46 @@
 /******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
 
+/***/ "./src/modules/loginAdm.js":
+/*!*********************************!*\
+  !*** ./src/modules/loginAdm.js ***!
+  \*********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+var formLogin = document.querySelector('#formLogin');
+var mainContent = document.querySelector('.mainContent');
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (function () {
+  formLogin.addEventListener('submit', function (e) {
+    var name = document.forms['formLogin'].name.value;
+    var _id = document.forms['formLogin']._id.value;
+    e.preventDefault();
+    fetch('http://localhost:8080/api/adm', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        _id: _id
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      if (data) {
+        return mainContent.innerHTML = data;
+      }
+
+      return mainContent.innerHTML = 'Error';
+    });
+  });
+});
+
+/***/ }),
+
 /***/ "./src/modules/registerClient.js":
 /*!***************************************!*\
   !*** ./src/modules/registerClient.js ***!
@@ -662,12 +702,18 @@ var __webpack_exports__ = {};
   \*********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _modules_registerClient__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/registerClient */ "./src/modules/registerClient.js");
-/* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/css/style.css */ "./src/assets/css/style.css");
+/* harmony import */ var _modules_loginAdm__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/loginAdm */ "./src/modules/loginAdm.js");
+/* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./assets/css/style.css */ "./src/assets/css/style.css");
+
 
 
 
 try {
   (0,_modules_registerClient__WEBPACK_IMPORTED_MODULE_0__["default"])();
+} catch (e) {}
+
+try {
+  (0,_modules_loginAdm__WEBPACK_IMPORTED_MODULE_1__["default"])();
 } catch (e) {}
 })();
 

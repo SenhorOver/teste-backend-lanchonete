@@ -1,0 +1,70 @@
+div.admPage{
+    display: flex;
+    justify-content: left;
+    nav.navbar{
+        width: 200px;
+        background-color: blueviolet;
+        height: 100vh;
+        padding: 25px 10px;
+        h1.title{
+            margin-bottom: 25px;
+        }
+        ul.menu{
+            li{
+                a{
+                    text-decoration: none;
+                    color: white;
+                    display: block;
+                    padding: 5px;
+                    border: 1px solid white;
+                    border-radius: 10px;
+                    margin-bottom: 15px;
+                    transition: all ease 250ms;
+
+                    &:hover{
+                        background-color: black;
+                    }
+                }
+            }
+        }
+    }
+
+    div.content{
+        text-align: center;
+        width: 70vw;
+        margin: 0 auto;
+        h2.title{
+            padding: 15px 0;
+            font-size: 2.5em;
+        }
+
+        button{
+            padding: 10px;
+            font-size: 1em;
+            width: 350px;
+            cursor: pointer;
+        }
+
+        hr{
+            width: 100%;
+        }
+
+        div.list{
+            margin: 50px 0;
+            overflow: auto;
+            max-height: 500px;
+            table{
+                width: 100%;
+                border: 3px solid black;
+                border-collapse: collapse;
+                
+            }
+
+            .bottom-border{
+                border: 1px solid black;
+                border-bottom: 2px solid black;
+                padding: 8px 0;
+            }
+        }
+    }
+}

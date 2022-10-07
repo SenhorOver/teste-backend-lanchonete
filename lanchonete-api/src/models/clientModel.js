@@ -1,7 +1,6 @@
 const mongoose = require('mongoose')
 
-
-const squema = mongoose.Squema({
+const squema = mongoose.Schema({
     name: String,
     email: String,
     phone: Number,

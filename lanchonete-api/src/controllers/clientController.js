@@ -10,7 +10,7 @@ async function get(req, res){
     const msg = client ? 'success' : 'error'
 
     res.send({
-        message: 'success',
+        message: msg,
         client
     })
 }

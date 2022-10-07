@@ -2,7 +2,8 @@ const mongoose = require('mongoose')
 
 
 function connectDb(){
-    mongoose.connect('mongodb://localhost:27017/backendAPI')
+    mongoose.connect('mongodb://127.0.0.1/backendAPI', 
+    {useNewUrlParser: true, useUnifiedTopology: true})
 
     const db = mongoose.connection
 

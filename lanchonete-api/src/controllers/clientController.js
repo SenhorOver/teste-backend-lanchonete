@@ -4,48 +4,70 @@ async function get(req, res){
     const {id} = req.params
     
     const search = id ? {_id: id} : null
+    
+    let client;
 
-    const client = await clientModel.find(search)
+    let msg = 'success'
+    try{
+        client = await clientModel.find(search)
 
-    const msg = client ? 'success' : 'error'
-
-    res.send({
-        message: msg,
-        client
-    })
+    } catch(e){
+        msg = 'error'
+    }finally{
+        res.send({
+            message: msg,
+            client
+        })
+    }
 }
 
 async function post(req, res){
-    const register = new clientModel(req.body)
+    let msg = 'success'
 
-    await register.save()
+    let register;
 
-    res.send({
-        message: 'success'
-    })
+    try{
+        register = new clientModel(req.body)
+
+        await register.save()
+    } catch(e){
+        msg = 'error'
+    } finally{
+        res.send({
+            message: msg
+        })
+    }
 }
 
 async function put(req, res){
     const {id} = req.params
-    const updated = await clientModel.findOneAndUpdate({_id: id}, req.body, {new: true})
-
-    const msg = updated ? 'success' : 'error'
-
-    res.send({
-        message: msg,
-        updated,
-    })
+    let msg = 'success'
+    let updated
+    try{
+        updated = await clientModel.findOneAndUpdate({_id: id}, req.body, {new: true})
+    } catch(e){
+        msg = 'error'
+    } finally{
+        res.send({
+            message: msg,
+            updated,
+        })
+    }
 }
 
 async function del(req, res){
     const {id} = req.params
-    const removed = await clientModel.deleteOne({_id: id})
-
-    const msg = removed.acknowledged ? 'success' : 'error'
-
-    res.send({
-        message: msg,
-    })
+    let msg = 'success'
+    let removed
+    try{
+        removed = await clientModel.deleteOne({_id: id})
+    } catch(e){
+        msg = 'error'
+    } finally{
+        res.send({
+            message: msg,
+        })
+    }
 }
 
 module.exports = {

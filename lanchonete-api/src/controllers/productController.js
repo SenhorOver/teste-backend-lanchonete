@@ -3,50 +3,66 @@ const {productModel} = require('../models/productModel')
 async function get(req, res){
     const {id} = req.params
     const search = id ? {_id: id} : null
-
-    const product = await productModel.find(search)
-
-    const msg = product ? 'success' : 'error'
-
-    res.send({
-        message: msg,
-        product,
-    })
+    let msg = 'success'
+    let product
+    try{
+        product = await productModel.find(search)
+    } catch(e){
+        msg = 'error'
+    } finally{
+        res.send({
+            message: msg,
+            product,
+        })
+    }
 }
 
 async function post(req, res){
-    const product = new productModel(req.body)
+    let product;
+    let msg = 'success'
+    try{
+        product = new productModel(req.body)
 
-    await product.save()
-
-    res.send({
-        message: 'success'
-    })
+        await product.save()
+    } catch(e){
+        msg = 'error'
+    } finally{
+        res.send({
+            message: msg
+        })
+    }
 }
 
 async function put(req, res){
     const {id} = req.params
-
-    const updated = await productModel.findOneAndUpdate({_id: id}, req.body, {new: true})
-
-    const msg = updated ? 'success' : 'error'
-
-    res.send({
-        message: msg,
-        updated
-    })
+    let msg = 'success'
+    let updated
+    try{
+        updated = await productModel.findOneAndUpdate({_id: id}, req.body, {new: true})
+    } catch(e){
+        msg = 'error'
+    } finally{
+        res.send({
+            message: msg,
+            updated
+        })
+    }
 }
+
 
 async function del(req, res){
     const {id} = req.params
-
-    const deleted = await productModel.deleteOne({_id: id})
-
-    const msg = deleted.acknowledged ? 'success' : 'error'
-
-    res.send({
-        message: msg
-    })
+    let deleted;
+    let msg = 'success'
+    try{
+        deleted = await productModel.deleteOne({_id: id})
+    } catch(e){
+        msg = 'error'
+    } finally{
+        res.send({
+            message: msg
+        })
+    }
 }
 
 

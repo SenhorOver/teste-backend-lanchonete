@@ -70,9 +70,16 @@ async function del(req, res){
     }
 }
 
+async function getLogin(req, res){
+    // Pegar email e ID para fazer o login, e após isso retornar os dados dos pedidos desse client (Buscar com o model de pedidos pelo ID desse usuário)
+    // Fazer no front a capacidade de fazer pedidos, utilizando o controller de orderController
+    res.send('NADA')
+}
+
 module.exports = {
     get,
     post,
     put,
-    del
+    del,
+    getLogin
 }

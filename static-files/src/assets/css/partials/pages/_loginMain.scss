@@ -1,0 +1,45 @@
+main.lgmainContent{
+    padding: 100px 0;
+    div.divLogin{
+        display: flex;
+
+        div.divCadastro{
+            h2.title{
+                padding-bottom: 15px;
+            }
+            form.formCadastro{
+                label{
+                    display: block;
+                    padding-top: 15px;
+                }
+                input{
+                    padding: 5px 10px;
+                    font-size: 1em;
+                    width: 100%;
+                    margin-top: 5px;
+                }
+                button{
+                    margin-top: 25px;
+                    width: 100%;
+                    background-color: white;
+                    border: 1px solid black;
+                    border-radius: 25px;
+                    padding: 10px 0;
+                    font-size: 1em;
+                    cursor: pointer;
+                    transition: background-color 250ms ease,color 250ms ease,border-color 250ms ease;
+
+                    &:hover{
+                        background-color: black;
+                        color: white;
+                        border-color: blue;
+                    }
+
+                    &:active{
+                        background-color: blue;
+                    }
+                }
+            }
+        }
+    }
+}

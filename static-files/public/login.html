@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Main Page</title>
+    <title>Login</title>
 </head>
 <body>
     <header class="hrheader">
@@ -27,32 +27,41 @@
             </ul>
         </nav>
     </header>
-    
-    <main class="mnmainContent">
-        <div class="container">
-            <h2 class="title">
-                AQUI ESTÁ O TÍTULO DO SITE, MAIS UM POUCO
-            </h2>
-            <p class="text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sapiente nam nihil tempore hic recusandae non impedit modi sit, accusamus praesentium cupiditate minus assumenda aliquam, soluta quae vitae ipsam enim.
-                Sequi vitae fugel, quis perferendis! Est, cumque consequuntur sequi quo ipsa consectetur. Nobis, dicta.
-            </p>
+
+    <main class="lgmainContent">
+        <div class="container divLogin">
+            <div class="divCadastro">
+                <h2 class="title">
+                    Register
+                </h2>
+                <form class="formCadastro">
+                    <label for="iptName">Name:</label>
+                    <input type="text" name="name" id="iptName" placeholder="FullName">
+
+                    <label for="iptName">Email:</label>
+                    <input type="text" name="email" id="iptEmail" placeholder="example@email.com">
+
+                    <label for="iptName">Cellphone:</label>
+                    <input type="tel" name="phone" id="iptPhone" placeholder="11 99999-9999">
+
+                    <label for="iptName">Address:</label>
+                    <input type="text" name="address" id="iptAddress" placeholder="example street, 9988">
+
+                    <button type="submit">Register</button>
+                </form>
+            </div>
+            <div class="subDivLogin">
+                <form class="formLogin"></form>
+            </div>
         </div>
-        <div class="img">
-            <img src="../src/assets/img/food.jpg" alt="Foto de comida">
-        </div>
-        <div class="container">
-            <p class="text">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Nulla sapiente nam nihil tempore hic recusandae non impedit modi sit, accusamus praesentium cupiditate minus assumenda aliquam, soluta quae vitae ipsam enim.
-                Sequi vitae fugel, quis perferendis! Est, cumque consequuntur sequi quo ipsa consectetur. Nobis, dicta.
-            </p>
+        <div class="logFeito">
+
         </div>
     </main>
-
+    
     <footer class="ftfooter">
         Todos os direitos reservador ₢
     </footer>
-
     <script src="js/bundle.js"></script>
 </body>
 </html>

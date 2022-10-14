@@ -24,12 +24,21 @@ body {
   font-family: Arial, Helvetica, sans-serif;
 }
 
+.container {
+  width: 800px;
+  margin: auto;
+}
+
+.none {
+  display: none;
+}
+
 header.hrheader {
   display: flex;
   justify-content: space-between;
   align-items: center;
   height: 75px;
-  padding: 0 35px;
+  padding: 0 65px;
 }
 header.hrheader h1.title {
   font-size: 2.5em;
@@ -104,4 +113,69 @@ header.hrheader nav.navbar ul.menu > li:last-child a span {
   border-radius: 50%;
   right: -35%;
   top: -25%;
+}
+
+main.mnmainContent {
+  width: 1250px;
+  margin: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+}
+main.mnmainContent div.container {
+  text-align: center;
+}
+main.mnmainContent div.container h2.title {
+  font-size: 3em;
+  font-weight: 100;
+  padding-bottom: 25px;
+  color: red;
+}
+main.mnmainContent div.container p.text {
+  text-align: left;
+  font-size: 1.6em;
+}
+main.mnmainContent div.img {
+  padding: 75px 0;
+}
+main.mnmainContent div.img img {
+  width: 100%;
+}
+
+main.lgmainContent {
+  padding: 100px 0;
+}
+main.lgmainContent div.divLogin {
+  display: flex;
+}
+main.lgmainContent div.divLogin div.divCadastro h2.title {
+  padding-bottom: 15px;
+}
+main.lgmainContent div.divLogin div.divCadastro form.formCadastro label {
+  display: block;
+  padding-top: 15px;
+}
+main.lgmainContent div.divLogin div.divCadastro form.formCadastro input {
+  padding: 5px 10px;
+  font-size: 1em;
+  width: 100%;
+  margin-top: 5px;
+}
+main.lgmainContent div.divLogin div.divCadastro form.formCadastro button {
+  margin-top: 25px;
+  width: 100%;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 25px;
+  padding: 10px 0;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease;
+}
+main.lgmainContent div.divLogin div.divCadastro form.formCadastro button:hover {
+  background-color: black;
+  color: white;
+  border-color: blue;
+}
+main.lgmainContent div.divLogin div.divCadastro form.formCadastro button:active {
+  background-color: blue;
 }/*# sourceMappingURL=style.css.map */

@@ -2,12 +2,13 @@ main.lgmainContent{
     padding: 100px 0;
     div.divLogin{
         display: flex;
-
-        div.divCadastro{
+        justify-content: space-between;
+        div.divCadastro, div.subDivLogin{
             h2.title{
+                text-align: center;
                 padding-bottom: 15px;
             }
-            form.formCadastro{
+            form.formCadastro, form.formLogin{
                 label{
                     display: block;
                     padding-top: 15px;

@@ -146,21 +146,23 @@ main.lgmainContent {
 }
 main.lgmainContent div.divLogin {
   display: flex;
+  justify-content: space-between;
 }
-main.lgmainContent div.divLogin div.divCadastro h2.title {
+main.lgmainContent div.divLogin div.divCadastro h2.title, main.lgmainContent div.divLogin div.subDivLogin h2.title {
+  text-align: center;
   padding-bottom: 15px;
 }
-main.lgmainContent div.divLogin div.divCadastro form.formCadastro label {
+main.lgmainContent div.divLogin div.divCadastro form.formCadastro label, main.lgmainContent div.divLogin div.divCadastro form.formLogin label, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro label, main.lgmainContent div.divLogin div.subDivLogin form.formLogin label {
   display: block;
   padding-top: 15px;
 }
-main.lgmainContent div.divLogin div.divCadastro form.formCadastro input {
+main.lgmainContent div.divLogin div.divCadastro form.formCadastro input, main.lgmainContent div.divLogin div.divCadastro form.formLogin input, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro input, main.lgmainContent div.divLogin div.subDivLogin form.formLogin input {
   padding: 5px 10px;
   font-size: 1em;
   width: 100%;
   margin-top: 5px;
 }
-main.lgmainContent div.divLogin div.divCadastro form.formCadastro button {
+main.lgmainContent div.divLogin div.divCadastro form.formCadastro button, main.lgmainContent div.divLogin div.divCadastro form.formLogin button, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro button, main.lgmainContent div.divLogin div.subDivLogin form.formLogin button {
   margin-top: 25px;
   width: 100%;
   background-color: white;
@@ -171,11 +173,11 @@ main.lgmainContent div.divLogin div.divCadastro form.formCadastro button {
   cursor: pointer;
   transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease;
 }
-main.lgmainContent div.divLogin div.divCadastro form.formCadastro button:hover {
+main.lgmainContent div.divLogin div.divCadastro form.formCadastro button:hover, main.lgmainContent div.divLogin div.divCadastro form.formLogin button:hover, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro button:hover, main.lgmainContent div.divLogin div.subDivLogin form.formLogin button:hover {
   background-color: black;
   color: white;
   border-color: blue;
 }
-main.lgmainContent div.divLogin div.divCadastro form.formCadastro button:active {
+main.lgmainContent div.divLogin div.divCadastro form.formCadastro button:active, main.lgmainContent div.divLogin div.divCadastro form.formLogin button:active, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro button:active, main.lgmainContent div.divLogin div.subDivLogin form.formLogin button:active {
   background-color: blue;
 }/*# sourceMappingURL=style.css.map */

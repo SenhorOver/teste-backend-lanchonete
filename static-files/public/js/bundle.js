@@ -60,12 +60,21 @@ var Main = {
         email: document.forms['formLogin'].email.value,
         _id: document.forms['formLogin']._id.value
       };
-      fetch(this.URL_API, {
+      fetch("".concat(this.URL_API, "Login"), {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify(objLogin)
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        if (data.message === 'success') {
+          console.log(data);
+          return;
+        }
+
+        alert('Deu erro');
       });
     }
   }
@@ -685,7 +694,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_modules_loginPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/modules/loginPage */ "./src/assets/modules/loginPage.js");
 
 
-_assets_modules_loginPage__WEBPACK_IMPORTED_MODULE_1__.Main.init();
+
+try {
+  _assets_modules_loginPage__WEBPACK_IMPORTED_MODULE_1__.Main.init();
+} catch (e) {}
 })();
 
 /******/ })()

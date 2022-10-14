@@ -52,10 +52,18 @@ export const Main = {
                 _id: document.forms['formLogin']._id.value
             }
 
-            fetch(this.URL_API, {
+            fetch(`${this.URL_API}Login`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(objLogin)
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.message === 'success'){
+                    console.log(data)
+                    return
+                }
+                alert('Deu erro')
             })
         }
     }

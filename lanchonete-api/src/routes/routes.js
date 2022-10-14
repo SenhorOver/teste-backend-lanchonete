@@ -12,7 +12,7 @@ router.post('/client/', clientController.post)
 router.put('/client/:id', clientController.put)
 router.delete('/client/:id', clientController.del)
     //Client Login
-router.get('/clientLogin/:id/:email', clientController.postLogin)
+router.post('/clientLogin', clientController.postLogin)
 
 
 //Product CRUD

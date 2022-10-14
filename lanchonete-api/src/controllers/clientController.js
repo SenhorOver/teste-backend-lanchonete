@@ -73,7 +73,20 @@ async function del(req, res){
 async function postLogin(req, res){
     // Pegar email e ID para fazer o login, e após isso retornar os dados dos pedidos desse client (Buscar com o model de pedidos pelo ID desse usuário)
     // Fazer no front a capacidade de fazer pedidos, utilizando o controller de orderController
-    res.send('NADA')
+    const {email, _id} = req.body
+    let client;
+    let msg = 'success'
+    try{
+        client = await clientModel.find({email: email, _id: _id})
+       if(!client[0]) throw new Error('Pesquisou sem ID')
+    } catch(e){
+        msg = 'error'
+    } finally{
+        res.send({
+            message: msg,
+            client
+        })
+    }
 }
 
 module.exports = {

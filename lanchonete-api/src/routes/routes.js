@@ -12,7 +12,7 @@ router.post('/client/', clientController.post)
 router.put('/client/:id', clientController.put)
 router.delete('/client/:id', clientController.del)
     //Client Login
-router.get('/clientLogin/:id/:email', clientController.getLogin)
+router.get('/clientLogin/:id/:email', clientController.postLogin)
 
 
 //Product CRUD
@@ -28,6 +28,6 @@ router.put('/order/:id', orderController.put) //Enviar ID do próprio pedido
 router.delete('/order/:id', orderController.del) //Id do próprio pedido
 
 //Send ADM Page
-router.get('/admPage/:id/:name', admPageController.get)
+router.post('/admPage/:id/:name', admPageController.post)
 
 module.exports = {router}

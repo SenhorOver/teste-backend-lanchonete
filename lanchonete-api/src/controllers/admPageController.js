@@ -1,8 +1,11 @@
 const {admPageModel} = require('../models/admPageModel')
 
-async function get(){
-    //Receber nome e id para a autenticação
+async function post(req, res){
+    const {name, id} = req.body
+
+    
+
     res.send('NADA')
 }
 
-module.exports = {get}
+module.exports = {post}

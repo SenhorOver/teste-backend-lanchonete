@@ -1,0 +1,107 @@
+@keyframes dropDown {
+  0% {
+    top: 125%;
+    opacity: 0;
+  }
+  100% {
+    top: 100%;
+    opacity: 1;
+  }
+}
+footer.ftfooter {
+  text-align: center;
+  padding: 20px;
+  background-color: rgb(201, 201, 201);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+header.hrheader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 75px;
+  padding: 0 35px;
+}
+header.hrheader h1.title {
+  font-size: 2.5em;
+  font-weight: 900;
+}
+header.hrheader h1.title a {
+  text-decoration: none;
+  color: black;
+}
+header.hrheader nav.navbar ul.menu {
+  list-style: none;
+  display: flex;
+  align-items: center;
+}
+header.hrheader nav.navbar ul.menu > li {
+  position: relative;
+  margin: 0 5px;
+}
+header.hrheader nav.navbar ul.menu > li a {
+  display: block;
+  padding: 15px 25px;
+  text-decoration: none;
+  color: black;
+  font-size: 0.9em;
+  font-weight: bold;
+  transition: color 500ms ease;
+}
+header.hrheader nav.navbar ul.menu > li a:hover {
+  color: grey;
+}
+header.hrheader nav.navbar ul.menu > li ul.submenu {
+  background-color: white;
+  box-shadow: 0 0 5px grey;
+  list-style: none;
+  left: -1000000%;
+  position: absolute;
+  opacity: 0;
+  min-width: 100%;
+}
+header.hrheader nav.navbar ul.menu > li:hover ul.submenu {
+  left: 0;
+  opacity: 1;
+  animation: dropDown 250ms ease 0ms 1 normal forwards;
+}
+header.hrheader nav.navbar ul.menu > li:first-child a {
+  background-color: black;
+  color: white;
+  border-radius: 25px;
+}
+header.hrheader nav.navbar ul.menu > li:nth-child(2) > a:hover {
+  color: black;
+}
+header.hrheader nav.navbar ul.menu > li:last-child {
+  margin: 0 0 0 5px;
+}
+header.hrheader nav.navbar ul.menu > li:last-child a {
+  padding: 0;
+  position: relative;
+}
+header.hrheader nav.navbar ul.menu > li:last-child a img {
+  width: 25px;
+}
+header.hrheader nav.navbar ul.menu > li:last-child a span {
+  position: absolute;
+  background-color: black;
+  color: white;
+  height: 20px;
+  width: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  right: -35%;
+  top: -25%;
+}/*# sourceMappingURL=style.css.map */

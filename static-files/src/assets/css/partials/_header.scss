@@ -1,0 +1,95 @@
+header.hrheader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 75px;
+    padding: 0 35px;
+
+    h1.title{
+        font-size: 2.5em;
+        font-weight: 900;
+        a{
+            text-decoration: none;
+            color: black;
+        }
+    }
+
+    nav.navbar{
+        ul.menu{
+            list-style: none;
+            display: flex;
+            align-items: center;
+            & > li{
+                position: relative;
+                margin: 0 5px;
+                a{
+                    display: block;
+                    padding: 15px 25px;
+                    text-decoration: none;
+                    color: black;
+                    font-size: 0.9em;
+                    font-weight: bold;
+                    transition: color 500ms ease;
+
+                    &:hover{
+                        color: grey;
+                    }
+                }
+
+                ul.submenu{
+                    background-color: white;
+                    box-shadow: 0 0 5px grey;
+                    list-style: none;
+                    left: -1000000%;
+                    position: absolute;
+                    opacity: 0;
+                    min-width: 100%;
+                }
+                
+                &:hover ul.submenu{
+                    left: 0;
+                    opacity: 1;
+                    animation: dropDown 250ms ease 0ms 1 normal forwards;
+                }
+
+                &:first-child{
+                    a{
+                        background-color: black;
+                        color: white;
+                        border-radius: 25px;
+                    }
+                }
+
+                &:nth-child(2){
+                    & > a:hover{
+                        color: black;
+                    }
+                }
+                
+                &:last-child{
+                    margin: 0 0 0 5px;
+                    a{
+                        padding: 0;
+                        position: relative;
+                        img{
+                            width: 25px;
+                        }
+                        span{
+                            position: absolute;
+                            background-color: black;
+                            color: white;
+                            height: 20px;
+                            width: 20px;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            border-radius: 50%;
+                            right: -35%;
+                            top: -25%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

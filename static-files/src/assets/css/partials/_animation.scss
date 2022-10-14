@@ -1,0 +1,10 @@
+@keyframes dropDown {
+    0%{
+        top: 125%;
+        opacity: 0;
+    }
+    100%{
+        top: 100%;
+        opacity: 1;
+    }
+}

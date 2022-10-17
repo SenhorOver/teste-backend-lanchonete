@@ -29,7 +29,7 @@
     </header>
 
     <main class="lgmainContent">
-        <!-- <div class="container divLogin">
+        <div class="container divLogin">
             <div class="divCadastro">
                 <h2 class="title">
                     Register
@@ -61,12 +61,67 @@
                     <label for="iptName">Password:</label>
                     <input type="password" name="_id" id="iptPwd" placeholder="********">
 
+                    <input type="hidden" name="hiddenId"> <!-- Colocar o ID aqui, ao receber a resposta do servidor com o conteúdo -->
+
                     <button type="submit" id="btnLogin">Login</button>
                 </form>
             </div>
-        </div> -->
-        <div class="logFeito">
-            <h2 class="title"></h2>
+        </div>
+        <div class="none container logFeito">
+            <div class="topContent">
+                <h2 class="title lgMainTitle">Olá Nome</h2>
+                <p class="text">Aqui estão as informações sobre seus pedidos</p>
+            </div>
+            <div class="infos">
+                <button id="btnListOrders">Listar Pedidos</button>
+                <button id="btnCreateOrder">Criar Novo Pedido</button>
+                <h3 class="title none lgTitle">Listagem dos pedidos</h3>
+                <ul class=" none ordersList">
+                    <li>
+                        <h4 class="title">
+                            Pedido: X-Burger - X-Salada
+                        </h4>
+                        <p class="price">Valor(R$): 14.99</p>
+                        <p class="status">status: Entregue</p>
+                        <span class="delete"></span>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            Pedido: X-Burger - X-Salada
+                        </h4>
+                        <p class="price">Valor(R$): 14.99</p>
+                        <p class="status">status: Entregue</p>
+                        <span class="delete"></span>
+                    </li>
+                    <li>
+                        <h4 class="title">
+                            Pedido: X-Burger - X-Salada
+                        </h4>
+                        <p class="price">Valor(R$): 14.99</p>
+                        <p class="status">status: Entregue</p>
+                        <span class="delete"></span>
+                    </li>
+                </ul>
+                <form action="#" class="none createOrder">
+                    <div class="products">
+                        <label for="ipt-chooseProducts">Escolha os produtos que deseja comprar:</label>
+                        <input list="products" name="product" id="ipt-product">
+                        <datalist id="products">
+                            <option value="X Burger">
+                            <option value="X Salada">
+                            <option value="outro">
+                            <option value="outro dois">
+                        </datalist>
+                        <button class="addProduct">Adicionar Produto</button>
+                        <div class="choosedProducts">
+                            <p>X-Burger <span class="delete"></span></p>
+                        </div>
+                    </div>
+                    
+                    <button type="submit">Criar novo pedido</button>
+                    <p class="productsPage">Caso se esqueça dos produtos, pode dar uma olhada aqui: <a href="#" class="productsPageLink">Products</a></p>
+                </form>
+            </div>
         </div>
     </main>
     

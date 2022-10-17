@@ -180,4 +180,142 @@ main.lgmainContent div.divLogin div.divCadastro form.formCadastro button:hover, 
 }
 main.lgmainContent div.divLogin div.divCadastro form.formCadastro button:active, main.lgmainContent div.divLogin div.divCadastro form.formLogin button:active, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro button:active, main.lgmainContent div.divLogin div.subDivLogin form.formLogin button:active {
   background-color: blue;
+}
+main.lgmainContent div.logFeito div.topContent {
+  text-align: center;
+}
+main.lgmainContent div.logFeito div.topContent h2.title {
+  font-size: 2.5em;
+  padding: 0 0 25px 0;
+}
+main.lgmainContent div.logFeito div.topContent p.text {
+  font-size: 1.3em;
+}
+main.lgmainContent div.logFeito div.infos {
+  padding: 50px 0 0;
+  text-align: center;
+}
+main.lgmainContent div.logFeito div.infos > button {
+  width: 45%;
+  padding: 15px;
+  background-color: white;
+  font-size: 1em;
+  cursor: pointer;
+  border-radius: 15px;
+}
+main.lgmainContent div.logFeito div.infos > button:active {
+  background-color: black;
+  color: white;
+}
+main.lgmainContent div.logFeito div.infos h3.title {
+  font-size: 1.8em;
+}
+main.lgmainContent div.logFeito div.infos ul.ordersList {
+  list-style: none;
+}
+main.lgmainContent div.logFeito div.infos ul.ordersList li {
+  padding: 15px 0;
+  position: relative;
+}
+main.lgmainContent div.logFeito div.infos ul.ordersList span.delete {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  height: 30px;
+  width: 30px;
+  background-color: red;
+  border-radius: 50%;
+  top: 50%;
+  right: 0;
+  transform: translateY(-50%);
+  cursor: pointer;
+  transition: background-color 250ms ease;
+  user-select: none;
+}
+main.lgmainContent div.logFeito div.infos ul.ordersList span.delete::after {
+  content: "X";
+  position: absolute;
+  display: inline-block;
+}
+main.lgmainContent div.logFeito div.infos ul.ordersList span.delete:hover {
+  background-color: darkred;
+}
+main.lgmainContent div.logFeito div.infos ul.ordersList span.delete:active {
+  background-color: black;
+}
+main.lgmainContent div.logFeito div.infos form.createOrder {
+  padding: 25px 0 0;
+}
+main.lgmainContent div.logFeito div.infos form.createOrder div.products label {
+  display: block;
+}
+main.lgmainContent div.logFeito div.infos form.createOrder div.products input {
+  display: block;
+  padding: 7px 0 7px 15px;
+  border-radius: 5px;
+  border: 1px solid black;
+  font-size: 1em;
+  width: 50%;
+  margin: auto;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choosedProducts {
+  margin: 10px 0;
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0 0 5px gray;
+}
+main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choosedProducts p {
+  border: 1px solid black;
+  width: fit-content;
+  padding: 5px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+}
+main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choosedProducts p span {
+  background-color: red;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  position: relative;
+  margin-left: 5px;
+  cursor: pointer;
+}
+main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choosedProducts p span::after {
+  content: "X";
+  font-size: 0.5em;
+  display: inline-block;
+  position: absolute;
+  color: white;
+  top: 50%;
+  transform: translateY(-45%);
+}
+main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choosedProducts p span:active {
+  background-color: black;
+}
+main.lgmainContent div.logFeito div.infos form.createOrder button {
+  cursor: pointer;
+  background-color: white;
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 7px;
+  font-size: 1em;
+  width: 50%;
+}
+main.lgmainContent div.logFeito div.infos form.createOrder button:active {
+  background-color: black;
+  color: white;
+}
+main.lgmainContent div.logFeito div.infos form.createOrder p.productsPage {
+  padding-top: 15px;
+  text-align: left;
+  font-size: 0.7em;
 }/*# sourceMappingURL=style.css.map */

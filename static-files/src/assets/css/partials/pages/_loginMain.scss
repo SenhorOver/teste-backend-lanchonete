@@ -45,6 +45,153 @@ main.lgmainContent{
     }
 
     div.logFeito{
-        
+        div.topContent{
+            text-align: center;
+            h2.title{
+                font-size: 2.5em;
+                padding: 0 0 25px 0;
+            }
+            p.text{
+                font-size: 1.3em;
+            }
+        }
+        div.infos{
+            padding: 50px 0 0;
+            text-align: center;
+            & > button{
+                width: 45%;
+                padding: 15px;
+                background-color: white;
+                font-size: 1em;
+                cursor: pointer;
+                border-radius: 15px;
+
+                &:active{
+                    background-color: black;
+                    color: white;
+                }
+            }
+            h3.title{
+                font-size: 1.8em;
+            }
+            ul.ordersList{
+                list-style: none;
+                li{
+                    padding: 15px 0;
+                    position: relative;
+                }
+                span.delete{
+                    position: absolute;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    color: white;
+                    height: 30px;
+                    width: 30px;
+                    background-color: red;
+                    border-radius: 50%;
+                    top: 50%;
+                    right: 0;
+                    transform: translateY(-50%);
+                    cursor: pointer;
+                    transition: background-color 250ms ease;
+                    user-select: none;
+
+                    &::after{
+                        content: "X";
+                        position: absolute;
+                        display: inline-block;
+                    }
+
+                    &:hover{
+                        background-color: darkred;
+                    }
+                    
+                    &:active{
+                        background-color: black;
+                    }
+                }
+            }
+            form.createOrder{
+                padding: 25px 0 0;
+                div.products{
+                    label{
+                        display: block;
+                    }
+                    input{
+                        display: block;
+                        padding: 7px 0 7px 15px;
+                        border-radius: 5px;
+                        border: 1px solid black;
+                        font-size: 1em;
+                        width: 50%;
+                        margin: auto;
+                        margin-top: 15px;
+                        margin-bottom: 15px;
+                    }
+                    div.choosedProducts{
+                        margin: 10px 0;
+                        padding: 15px;
+                        border: 1px solid black;
+                        border-radius: 10px;
+                        box-shadow: 0 0 5px gray;
+                        p{
+                            border: 1px solid black;
+                            width: fit-content;
+                            padding: 5px;
+                            border-radius: 10px; 
+                            display: flex;
+                            align-items: center;
+                            span{
+                                background-color: red;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                width: 15px;
+                                height: 15px;
+                                border-radius: 50%;
+                                position: relative;
+                                margin-left: 5px;
+                                cursor: pointer;
+
+                                &::after{
+                                    content: "X";
+                                    font-size: 0.5em;
+                                    display: inline-block;
+                                    position: absolute;
+                                    color: white;
+                                    top: 50%;
+                                    transform: translateY(-45%);
+                                }
+
+                                &:active{
+                                    background-color: black;
+                                }
+                            }
+                        }
+                    }
+                }
+                button{
+                    cursor: pointer;
+                    background-color: white;
+                    border: 1px solid black;
+                    border-radius: 5px;
+                    padding: 7px;
+                    font-size: 1em;
+                    width: 50%;
+
+                    &:active{
+                        background-color: black;
+                        color: white;
+                    }
+                }
+
+                p.productsPage{
+                    padding-top: 15px;
+                    text-align: left;
+                    font-size: 0.7em;
+                }
+            }
+        }
     }
 }

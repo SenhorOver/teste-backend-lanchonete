@@ -61,7 +61,7 @@
                     <label for="iptName">Password:</label>
                     <input type="password" name="_id" id="iptPwd" placeholder="********">
 
-                    <input type="hidden" name="hiddenId"> <!-- Colocar o ID aqui, ao receber a resposta do servidor com o conteúdo -->
+                    <input type="hidden" name="hiddenId">
 
                     <button type="submit" id="btnLogin">Login</button>
                 </form>
@@ -102,7 +102,7 @@
                         <span class="delete"></span>
                     </li>
                 </ul>
-                <form action="#" class="none createOrder">
+                <div class="none createOrder">
                     <div class="products">
                         <label for="ipt-chooseProducts">Escolha os produtos que deseja comprar:</label>
                         <input list="products" name="product" id="ipt-product">
@@ -112,15 +112,15 @@
                             <option value="outro">
                             <option value="outro dois">
                         </datalist>
-                        <button class="addProduct">Adicionar Produto</button>
+                        <button class="addProduct" id="btn-add-product">Adicionar Produto</button>
                         <div class="choosedProducts">
-                            <p>X-Burger <span class="delete"></span></p>
+                            
                         </div>
                     </div>
                     
-                    <button type="submit">Criar novo pedido</button>
+                    <button type="submit" id="newOrder">Criar novo pedido</button>
                     <p class="productsPage">Caso se esqueça dos produtos, pode dar uma olhada aqui: <a href="#" class="productsPageLink">Products</a></p>
-                </form>
+                </div>
             </div>
         </div>
     </main>

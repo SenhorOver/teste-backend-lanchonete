@@ -245,13 +245,13 @@ main.lgmainContent div.logFeito div.infos ul.ordersList span.delete:hover {
 main.lgmainContent div.logFeito div.infos ul.ordersList span.delete:active {
   background-color: black;
 }
-main.lgmainContent div.logFeito div.infos form.createOrder {
+main.lgmainContent div.logFeito div.infos div.createOrder {
   padding: 25px 0 0;
 }
-main.lgmainContent div.logFeito div.infos form.createOrder div.products label {
+main.lgmainContent div.logFeito div.infos div.createOrder div.products label {
   display: block;
 }
-main.lgmainContent div.logFeito div.infos form.createOrder div.products input {
+main.lgmainContent div.logFeito div.infos div.createOrder div.products input {
   display: block;
   padding: 7px 0 7px 15px;
   border-radius: 5px;
@@ -262,14 +262,14 @@ main.lgmainContent div.logFeito div.infos form.createOrder div.products input {
   margin-top: 15px;
   margin-bottom: 15px;
 }
-main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choosedProducts {
+main.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts {
   margin: 10px 0;
   padding: 15px;
   border: 1px solid black;
   border-radius: 10px;
   box-shadow: 0 0 5px gray;
 }
-main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choosedProducts p {
+main.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p {
   border: 1px solid black;
   width: fit-content;
   padding: 5px;
@@ -277,7 +277,7 @@ main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choo
   display: flex;
   align-items: center;
 }
-main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choosedProducts p span {
+main.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p span {
   background-color: red;
   display: flex;
   align-items: center;
@@ -289,7 +289,7 @@ main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choo
   margin-left: 5px;
   cursor: pointer;
 }
-main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choosedProducts p span::after {
+main.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p span::after {
   content: "X";
   font-size: 0.5em;
   display: inline-block;
@@ -298,10 +298,10 @@ main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choo
   top: 50%;
   transform: translateY(-45%);
 }
-main.lgmainContent div.logFeito div.infos form.createOrder div.products div.choosedProducts p span:active {
+main.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p span:active {
   background-color: black;
 }
-main.lgmainContent div.logFeito div.infos form.createOrder button {
+main.lgmainContent div.logFeito div.infos div.createOrder button {
   cursor: pointer;
   background-color: white;
   border: 1px solid black;
@@ -310,11 +310,11 @@ main.lgmainContent div.logFeito div.infos form.createOrder button {
   font-size: 1em;
   width: 50%;
 }
-main.lgmainContent div.logFeito div.infos form.createOrder button:active {
+main.lgmainContent div.logFeito div.infos div.createOrder button:active {
   background-color: black;
   color: white;
 }
-main.lgmainContent div.logFeito div.infos form.createOrder p.productsPage {
+main.lgmainContent div.logFeito div.infos div.createOrder p.productsPage {
   padding-top: 15px;
   text-align: left;
   font-size: 0.7em;

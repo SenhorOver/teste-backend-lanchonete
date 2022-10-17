@@ -15,6 +15,7 @@ __webpack_require__.r(__webpack_exports__);
 var Main = {
   $btnRegister: document.querySelector('#btnRegister'),
   $btnLogin: document.querySelector('#btnLogin'),
+  divLogin: document.querySelector('.divLogin'),
   URL_API: 'http://localhost:8080/api/client',
   init: function init() {
     this.cacheSelectors();
@@ -55,6 +56,8 @@ var Main = {
       });
     },
     click_Login: function click_Login(e) {
+      var _this = this;
+
       e.preventDefault();
       var objLogin = {
         email: document.forms['formLogin'].email.value,
@@ -70,12 +73,20 @@ var Main = {
         return response.json();
       }).then(function (data) {
         if (data.message === 'success') {
-          console.log(data);
+          _this.fetchResponses.successLogin(data, _this);
+
           return;
         }
 
         alert('Deu erro');
       });
+    }
+  },
+  fetchResponses: {
+    successLogin: function successLogin(data, th) {
+      console.log(data);
+      th.divLogin.classList.add('none');
+      th.divLogin.classList.remove('divLogin');
     }
   }
 };

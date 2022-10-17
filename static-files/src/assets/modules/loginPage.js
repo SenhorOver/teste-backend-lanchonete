@@ -1,6 +1,7 @@
 export const Main = {
     $btnRegister: document.querySelector('#btnRegister'),
     $btnLogin: document.querySelector('#btnLogin'),
+    divLogin: document.querySelector('.divLogin'),
     URL_API: 'http://localhost:8080/api/client',
 
     init(){
@@ -60,11 +61,19 @@ export const Main = {
             .then(response => response.json())
             .then(data => {
                 if(data.message === 'success'){
-                    console.log(data)
+                    this.fetchResponses.successLogin(data, this)
                     return
                 }
                 alert('Deu erro')
             })
+        }
+    },
+
+    fetchResponses: {
+        successLogin(data, th){
+            console.log(data)
+            th.divLogin.classList.add('none')
+            th.divLogin.classList.remove('divLogin')
         }
     }
 

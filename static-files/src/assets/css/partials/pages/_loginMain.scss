@@ -135,6 +135,8 @@ main.lgmainContent{
                         border: 1px solid black;
                         border-radius: 10px;
                         box-shadow: 0 0 5px gray;
+                        display: flex;
+                        flex-wrap: wrap;
                         p{
                             border: 1px solid black;
                             width: fit-content;
@@ -142,6 +144,7 @@ main.lgmainContent{
                             border-radius: 10px; 
                             display: flex;
                             align-items: center;
+                            margin: 3px;
                             span{
                                 background-color: red;
                                 display: flex;

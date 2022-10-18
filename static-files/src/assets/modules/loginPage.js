@@ -102,8 +102,9 @@ export const Main = {
             //Fazer fetch para orders, mandando o ID desse usuário que está no input hidden para a API para que ela faça a pesquisa no banco de dados e me devolva os pedidos desse cliente
         },
 
-        click_createOrder(e){
+        async click_createOrder(e){
             this.cacheSelectors()
+            await this.fetchResponses.fillOrdersProducts.bind(this)()
             this.fetchResponses.showOrderForm()
         }
     },
@@ -133,6 +134,27 @@ export const Main = {
             form.classList.add('none')
         },
 
+
+        fillOrdersProducts(){
+            fetch('http://localhost:8080/api/product')
+                .then(response => response.json())
+                .then(data => {
+                    if(data.message === 'success'){
+                        const products = data.product
+                        const datalist = document.querySelector('#products')
+
+                        products.forEach(vl => {
+                            datalist.innerHTML += this.formEventsFunctions.addDatalistProducts(vl)
+                        })
+
+                        //Fazer evento para criar novo pedido
+
+                        return
+                    }
+                    alert('Ocorreu um erro')
+                })
+        },
+
         showOrderForm(){
             const list = document.querySelector('.ordersList')
             const form = document.querySelector('.createOrder')
@@ -149,12 +171,26 @@ export const Main = {
         click_addProduct(e){
             const iptProduct = document.querySelector('#ipt-product')
             const choosedProducts = document.querySelector('.choosedProducts')
-
-            console.log('cliquei')
+            const options = document.querySelectorAll('option')
+            let id;
+            let price
+            let flag = false
             
             const product = iptProduct.value
             iptProduct.value = ''
-            choosedProducts.innerHTML += this.formEventsFunctions.addProduct(product)
+
+            options.forEach(vl => {
+                if(product === vl.value){
+                    id = vl.dataset.id
+                    price = vl.dataset.price
+                    flag = true
+                }
+            })
+            if(!flag){
+                alert('Digite o nome do produto, e selecione ele na lista')
+                return
+            }
+            choosedProducts.innerHTML += this.formEventsFunctions.addProduct(product, id, price)
             this.cacheSelectors()
         },
 
@@ -165,15 +201,28 @@ export const Main = {
     },
 
     formEventsFunctions: {
-        addProduct(product, th){
+        addProduct(product, id, price){
             if(!product) {
                 alert('Nada selecionado')
                 return
             }
+            if(!id || !price){
+                return `
+                <p>${product} 
+                    <span class="delete btnDeleteProduct"></span>
+                </p>
+                `
+            }
             return `
-            <p>${product} 
+            <p data-id="${id}" data-price="${price}">${product} 
                 <span class="delete btnDeleteProduct"></span>
             </p>
+            `
+        },
+
+        addDatalistProducts(product){
+            return `
+                <option value="${product.name}" data-id="${product._id}" data-price="${product.price}">
             `
         }
     }

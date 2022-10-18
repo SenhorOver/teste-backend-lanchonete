@@ -5,11 +5,14 @@ export const Main = {
     $btnCreateOrder: document.querySelector('#btnCreateOrder'),
     $btnAddProduct: document.querySelector('#btn-add-product'),
     $btnNewOrder: document.querySelector('#newOrder'),
+    $newOrderDiv: document.querySelector('.newOrderDiv'),
+    $btnConfirmOrder: document.querySelector('#confirmNewOrder'),
     URL_API: 'http://localhost:8080/api/client',
     
     init(){
         this.cacheSelectors()
         this.bindEvents()
+        document.addEventListener('click', this.documentEvents.clickInDocument.bind(this))
     },
 
     cacheSelectors(){
@@ -19,11 +22,24 @@ export const Main = {
         this.$btnCreateOrder.onclick = this.Events.click_createOrder.bind(this)
         
         this.$btnAddProduct.onclick = this.formEvents.click_addProduct.bind(this)
+        this.$btnNewOrder.onclick = this.formEvents.click_makeOrder.bind(this)
+        this.$btnConfirmOrder.onclick = this.Events.click_confirmNewOrder.bind(this)
+
+        try{
+            const $btnDeleteListItem = document.querySelectorAll('.deleteListItem')
+    
+            $btnDeleteListItem.forEach(vl => {
+                vl.onclick = this.formEvents.click_removeProduct.bind(this)
+            })
+        } catch(e){}
+        
         try{
             const $btnRmProduct = document.querySelectorAll('.btnDeleteProduct')
+
             $btnRmProduct.forEach(vl => {
                 vl.onclick = this.formEvents.click_removeProduct.bind(this)
             })
+
         } catch(e){}
     },
 
@@ -106,6 +122,34 @@ export const Main = {
             this.cacheSelectors()
             await this.fetchResponses.fillOrdersProducts.bind(this)()
             this.fetchResponses.showOrderForm()
+        },
+
+        click_confirmNewOrder(e){
+            const idProducts = JSON.parse(this.$btnConfirmOrder.dataset.id)
+            const idUser = document.forms['formLogin'].hiddenId.value
+            const status = 'Pendente'
+            const date = new Intl.DateTimeFormat('pt-BR', {dateStyle: 'short', timeStyle: 'long'}).format()
+
+            fetch(`http://localhost:8080/api/order/${idUser}`, {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    date,
+                    status,
+                    idP: idProducts,
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.message === 'success'){
+                    this.$newOrderDiv.classList.remove('newOrder')
+                    const choosedProducts = document.querySelector('.choosedProducts')
+                    choosedProducts.innerHTML = ''
+                    alert('Pedido feito')
+                    return
+                }
+                alert('Ocorreu um erro')
+            })
         }
     },
 
@@ -132,6 +176,8 @@ export const Main = {
             const form = document.querySelector('.createOrder')
             list.classList.remove('none')
             form.classList.add('none')
+
+            //Falta fazer o código que irá estruturar o conteúdo, mas eu tenho primeiro que fazer a criação de um novo pedido
         },
 
 
@@ -142,12 +188,11 @@ export const Main = {
                     if(data.message === 'success'){
                         const products = data.product
                         const datalist = document.querySelector('#products')
+                        datalist.innerHTML = ''
 
                         products.forEach(vl => {
                             datalist.innerHTML += this.formEventsFunctions.addDatalistProducts(vl)
                         })
-
-                        //Fazer evento para criar novo pedido
 
                         return
                     }
@@ -161,10 +206,6 @@ export const Main = {
             list.classList.add('none')
             form.classList.remove('none')
         },
-
-        structureOrdersForm(data){
-
-        }
     },
 
     formEvents: {
@@ -197,7 +238,16 @@ export const Main = {
         click_removeProduct(e){
             const product = e.target
             product.parentElement.remove()
-        }
+        },
+
+        click_makeOrder(e){
+            const addedProducts = document.querySelectorAll('.addedProducts')
+
+            if(!addedProducts[0]) return alert('Nenhum produto selecionado')
+
+            this.$newOrderDiv.classList.add('newOrder')
+            this.formEventsFunctions.createConfirmPage.bind(this)()
+        },
     },
 
     formEventsFunctions: {
@@ -208,13 +258,13 @@ export const Main = {
             }
             if(!id || !price){
                 return `
-                <p>${product} 
+                <p class="addedProducts">${product} 
                     <span class="delete btnDeleteProduct"></span>
                 </p>
                 `
             }
             return `
-            <p data-id="${id}" data-price="${price}">${product} 
+            <p class="addedProducts" data-id="${id}" data-price="${price}">${product} 
                 <span class="delete btnDeleteProduct"></span>
             </p>
             `
@@ -224,6 +274,41 @@ export const Main = {
             return `
                 <option value="${product.name}" data-id="${product._id}" data-price="${product.price}">
             `
+        },
+
+        createConfirmPage(){
+            const confirmContent = document.querySelector('.confirmContent') 
+            const confirmPrice = document.querySelector('.confirmPrice')
+            const btnConfirmOrder = document.querySelector('#confirmNewOrder')
+
+            const addedProducts = document.querySelectorAll('.addedProducts')
+
+            let products = []
+            let ids = []
+            let price = 0
+
+            addedProducts.forEach(vl => {
+                products.push(vl.innerText)
+                price = price + Number(vl.dataset.price)
+                ids.push(vl.dataset.id)
+            })
+            confirmContent.innerHTML = `<span class="lineHead">Conteúdo: </span>`
+            confirmPrice.innerHTML = `<span class="lineHead">Preço (R$): </span>`
+
+            confirmContent.innerHTML += ` ${products.join(' | ')}`
+            confirmPrice.innerHTML += ` ${price.toFixed(2)}`
+            btnConfirmOrder.setAttribute('data-id', JSON.stringify(ids))
+            this.cacheSelectors()
+        }
+    },
+
+    documentEvents: {
+        clickInDocument(e){
+            const el = e.target
+            if(el.classList.contains('newOrder')){
+                el.classList.remove('newOrder')
+                return
+            }
         }
     }
 

@@ -27,10 +27,13 @@ var Main = {
   $btnCreateOrder: document.querySelector('#btnCreateOrder'),
   $btnAddProduct: document.querySelector('#btn-add-product'),
   $btnNewOrder: document.querySelector('#newOrder'),
+  $newOrderDiv: document.querySelector('.newOrderDiv'),
+  $btnConfirmOrder: document.querySelector('#confirmNewOrder'),
   URL_API: 'http://localhost:8080/api/client',
   init: function init() {
     this.cacheSelectors();
     this.bindEvents();
+    document.addEventListener('click', this.documentEvents.clickInDocument.bind(this));
   },
   cacheSelectors: function cacheSelectors() {
     var _this = this;
@@ -40,6 +43,15 @@ var Main = {
     this.$btnListOrder.onclick = this.Events.click_listOrder.bind(this);
     this.$btnCreateOrder.onclick = this.Events.click_createOrder.bind(this);
     this.$btnAddProduct.onclick = this.formEvents.click_addProduct.bind(this);
+    this.$btnNewOrder.onclick = this.formEvents.click_makeOrder.bind(this);
+    this.$btnConfirmOrder.onclick = this.Events.click_confirmNewOrder.bind(this);
+
+    try {
+      var $btnDeleteListItem = document.querySelectorAll('.deleteListItem');
+      $btnDeleteListItem.forEach(function (vl) {
+        vl.onclick = _this.formEvents.click_removeProduct.bind(_this);
+      });
+    } catch (e) {}
 
     try {
       var $btnRmProduct = document.querySelectorAll('.btnDeleteProduct');
@@ -150,6 +162,41 @@ var Main = {
           }
         }, _callee);
       }))();
+    },
+    click_confirmNewOrder: function click_confirmNewOrder(e) {
+      var _this5 = this;
+
+      var idProducts = JSON.parse(this.$btnConfirmOrder.dataset.id);
+      var idUser = document.forms['formLogin'].hiddenId.value;
+      var status = 'Pendente';
+      var date = new Intl.DateTimeFormat('pt-BR', {
+        dateStyle: 'short',
+        timeStyle: 'long'
+      }).format();
+      fetch("http://localhost:8080/api/order/".concat(idUser), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          date: date,
+          status: status,
+          idP: idProducts
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        if (data.message === 'success') {
+          _this5.$newOrderDiv.classList.remove('newOrder');
+
+          var choosedProducts = document.querySelector('.choosedProducts');
+          choosedProducts.innerHTML = '';
+          alert('Pedido feito');
+          return;
+        }
+
+        alert('Ocorreu um erro');
+      });
     }
   },
   fetchResponses: {
@@ -171,10 +218,10 @@ var Main = {
       var list = document.querySelector('.ordersList');
       var form = document.querySelector('.createOrder');
       list.classList.remove('none');
-      form.classList.add('none');
+      form.classList.add('none'); //Falta fazer o código que irá estruturar o conteúdo, mas eu tenho primeiro que fazer a criação de um novo pedido
     },
     fillOrdersProducts: function fillOrdersProducts() {
-      var _this5 = this;
+      var _this6 = this;
 
       fetch('http://localhost:8080/api/product').then(function (response) {
         return response.json();
@@ -182,10 +229,10 @@ var Main = {
         if (data.message === 'success') {
           var products = data.product;
           var datalist = document.querySelector('#products');
+          datalist.innerHTML = '';
           products.forEach(function (vl) {
-            datalist.innerHTML += _this5.formEventsFunctions.addDatalistProducts(vl);
-          }); //Fazer evento para criar novo pedido
-
+            datalist.innerHTML += _this6.formEventsFunctions.addDatalistProducts(vl);
+          });
           return;
         }
 
@@ -197,8 +244,7 @@ var Main = {
       var form = document.querySelector('.createOrder');
       list.classList.add('none');
       form.classList.remove('none');
-    },
-    structureOrdersForm: function structureOrdersForm(data) {}
+    }
   },
   formEvents: {
     click_addProduct: function click_addProduct(e) {
@@ -229,6 +275,12 @@ var Main = {
     click_removeProduct: function click_removeProduct(e) {
       var product = e.target;
       product.parentElement.remove();
+    },
+    click_makeOrder: function click_makeOrder(e) {
+      var addedProducts = document.querySelectorAll('.addedProducts');
+      if (!addedProducts[0]) return alert('Nenhum produto selecionado');
+      this.$newOrderDiv.classList.add('newOrder');
+      this.formEventsFunctions.createConfirmPage.bind(this)();
     }
   },
   formEventsFunctions: {
@@ -239,13 +291,43 @@ var Main = {
       }
 
       if (!id || !price) {
-        return "\n                <p>".concat(product, " \n                    <span class=\"delete btnDeleteProduct\"></span>\n                </p>\n                ");
+        return "\n                <p class=\"addedProducts\">".concat(product, " \n                    <span class=\"delete btnDeleteProduct\"></span>\n                </p>\n                ");
       }
 
-      return "\n            <p data-id=\"".concat(id, "\" data-price=\"").concat(price, "\">").concat(product, " \n                <span class=\"delete btnDeleteProduct\"></span>\n            </p>\n            ");
+      return "\n            <p class=\"addedProducts\" data-id=\"".concat(id, "\" data-price=\"").concat(price, "\">").concat(product, " \n                <span class=\"delete btnDeleteProduct\"></span>\n            </p>\n            ");
     },
     addDatalistProducts: function addDatalistProducts(product) {
       return "\n                <option value=\"".concat(product.name, "\" data-id=\"").concat(product._id, "\" data-price=\"").concat(product.price, "\">\n            ");
+    },
+    createConfirmPage: function createConfirmPage() {
+      var confirmContent = document.querySelector('.confirmContent');
+      var confirmPrice = document.querySelector('.confirmPrice');
+      var btnConfirmOrder = document.querySelector('#confirmNewOrder');
+      var addedProducts = document.querySelectorAll('.addedProducts');
+      var products = [];
+      var ids = [];
+      var price = 0;
+      addedProducts.forEach(function (vl) {
+        products.push(vl.innerText);
+        price = price + Number(vl.dataset.price);
+        ids.push(vl.dataset.id);
+      });
+      confirmContent.innerHTML = "<span class=\"lineHead\">Conte\xFAdo: </span>";
+      confirmPrice.innerHTML = "<span class=\"lineHead\">Pre\xE7o (R$): </span>";
+      confirmContent.innerHTML += " ".concat(products.join(' | '));
+      confirmPrice.innerHTML += " ".concat(price.toFixed(2));
+      btnConfirmOrder.setAttribute('data-id', JSON.stringify(ids));
+      this.cacheSelectors();
+    }
+  },
+  documentEvents: {
+    clickInDocument: function clickInDocument(e) {
+      var el = e.target;
+
+      if (el.classList.contains('newOrder')) {
+        el.classList.remove('newOrder');
+        return;
+      }
     }
   }
 };
@@ -271,7 +353,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_1___default()((_node_modules_css_loader_dist_runtime_sourceMaps_js__WEBPACK_IMPORTED_MODULE_0___default()));
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "@keyframes dropDown {\n  0% {\n    top: 125%;\n    opacity: 0;\n  }\n  100% {\n    top: 100%;\n    opacity: 1;\n  }\n}\nfooter.ftfooter {\n  text-align: center;\n  padding: 20px;\n  background-color: rgb(201, 201, 201);\n}\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  font-family: Arial, Helvetica, sans-serif;\n}\n\n.container {\n  width: 800px;\n  margin: auto;\n}\n\n.none {\n  display: none;\n}\n\nheader.hrheader {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  height: 75px;\n  padding: 0 65px;\n}\nheader.hrheader h1.title {\n  font-size: 2.5em;\n  font-weight: 900;\n}\nheader.hrheader h1.title a {\n  text-decoration: none;\n  color: black;\n}\nheader.hrheader nav.navbar ul.menu {\n  list-style: none;\n  display: flex;\n  align-items: center;\n}\nheader.hrheader nav.navbar ul.menu > li {\n  position: relative;\n  margin: 0 5px;\n}\nheader.hrheader nav.navbar ul.menu > li a {\n  display: block;\n  padding: 15px 25px;\n  text-decoration: none;\n  color: black;\n  font-size: 0.9em;\n  font-weight: bold;\n  transition: color 500ms ease;\n}\nheader.hrheader nav.navbar ul.menu > li a:hover {\n  color: grey;\n}\nheader.hrheader nav.navbar ul.menu > li ul.submenu {\n  background-color: white;\n  box-shadow: 0 0 5px grey;\n  list-style: none;\n  left: -1000000%;\n  position: absolute;\n  opacity: 0;\n  min-width: 100%;\n}\nheader.hrheader nav.navbar ul.menu > li:hover ul.submenu {\n  left: 0;\n  opacity: 1;\n  animation: dropDown 250ms ease 0ms 1 normal forwards;\n}\nheader.hrheader nav.navbar ul.menu > li:first-child a {\n  background-color: black;\n  color: white;\n  border-radius: 25px;\n}\nheader.hrheader nav.navbar ul.menu > li:nth-child(2) > a:hover {\n  color: black;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child {\n  margin: 0 0 0 5px;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a {\n  padding: 0;\n  position: relative;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a img {\n  width: 25px;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a span {\n  position: absolute;\n  background-color: black;\n  color: white;\n  height: 20px;\n  width: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  right: -35%;\n  top: -25%;\n}\n\nmain.mnmainContent {\n  width: 1250px;\n  margin: auto;\n  margin-top: 100px;\n  margin-bottom: 100px;\n}\nmain.mnmainContent div.container {\n  text-align: center;\n}\nmain.mnmainContent div.container h2.title {\n  font-size: 3em;\n  font-weight: 100;\n  padding-bottom: 25px;\n  color: red;\n}\nmain.mnmainContent div.container p.text {\n  text-align: left;\n  font-size: 1.6em;\n}\nmain.mnmainContent div.img {\n  padding: 75px 0;\n}\nmain.mnmainContent div.img img {\n  width: 100%;\n}\n\nmain.lgmainContent {\n  padding: 100px 0;\n}\nmain.lgmainContent div.divLogin {\n  display: flex;\n  justify-content: space-between;\n}\nmain.lgmainContent div.divLogin div.divCadastro h2.title, main.lgmainContent div.divLogin div.subDivLogin h2.title {\n  text-align: center;\n  padding-bottom: 15px;\n}\nmain.lgmainContent div.divLogin div.divCadastro form.formCadastro label, main.lgmainContent div.divLogin div.divCadastro form.formLogin label, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro label, main.lgmainContent div.divLogin div.subDivLogin form.formLogin label {\n  display: block;\n  padding-top: 15px;\n}\nmain.lgmainContent div.divLogin div.divCadastro form.formCadastro input, main.lgmainContent div.divLogin div.divCadastro form.formLogin input, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro input, main.lgmainContent div.divLogin div.subDivLogin form.formLogin input {\n  padding: 5px 10px;\n  font-size: 1em;\n  width: 100%;\n  margin-top: 5px;\n}\nmain.lgmainContent div.divLogin div.divCadastro form.formCadastro button, main.lgmainContent div.divLogin div.divCadastro form.formLogin button, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro button, main.lgmainContent div.divLogin div.subDivLogin form.formLogin button {\n  margin-top: 25px;\n  width: 100%;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 25px;\n  padding: 10px 0;\n  font-size: 1em;\n  cursor: pointer;\n  transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease;\n}\nmain.lgmainContent div.divLogin div.divCadastro form.formCadastro button:hover, main.lgmainContent div.divLogin div.divCadastro form.formLogin button:hover, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro button:hover, main.lgmainContent div.divLogin div.subDivLogin form.formLogin button:hover {\n  background-color: black;\n  color: white;\n  border-color: blue;\n}\nmain.lgmainContent div.divLogin div.divCadastro form.formCadastro button:active, main.lgmainContent div.divLogin div.divCadastro form.formLogin button:active, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro button:active, main.lgmainContent div.divLogin div.subDivLogin form.formLogin button:active {\n  background-color: blue;\n}\nmain.lgmainContent div.logFeito div.topContent {\n  text-align: center;\n}\nmain.lgmainContent div.logFeito div.topContent h2.title {\n  font-size: 2.5em;\n  padding: 0 0 25px 0;\n}\nmain.lgmainContent div.logFeito div.topContent p.text {\n  font-size: 1.3em;\n}\nmain.lgmainContent div.logFeito div.infos {\n  padding: 50px 0 0;\n  text-align: center;\n}\nmain.lgmainContent div.logFeito div.infos > button {\n  width: 45%;\n  padding: 15px;\n  background-color: white;\n  font-size: 1em;\n  cursor: pointer;\n  border-radius: 15px;\n}\nmain.lgmainContent div.logFeito div.infos > button:active {\n  background-color: black;\n  color: white;\n}\nmain.lgmainContent div.logFeito div.infos h3.title {\n  font-size: 1.8em;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList {\n  list-style: none;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList li {\n  padding: 15px 0;\n  position: relative;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList span.delete {\n  position: absolute;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  color: white;\n  height: 30px;\n  width: 30px;\n  background-color: red;\n  border-radius: 50%;\n  top: 50%;\n  right: 0;\n  transform: translateY(-50%);\n  cursor: pointer;\n  transition: background-color 250ms ease;\n  user-select: none;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList span.delete::after {\n  content: \"X\";\n  position: absolute;\n  display: inline-block;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList span.delete:hover {\n  background-color: darkred;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList span.delete:active {\n  background-color: black;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder {\n  padding: 25px 0 0;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products label {\n  display: block;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products input {\n  display: block;\n  padding: 7px 0 7px 15px;\n  border-radius: 5px;\n  border: 1px solid black;\n  font-size: 1em;\n  width: 50%;\n  margin: auto;\n  margin-top: 15px;\n  margin-bottom: 15px;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts {\n  margin: 10px 0;\n  padding: 15px;\n  border: 1px solid black;\n  border-radius: 10px;\n  box-shadow: 0 0 5px gray;\n  display: flex;\n  flex-wrap: wrap;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p {\n  border: 1px solid black;\n  width: fit-content;\n  padding: 5px;\n  border-radius: 10px;\n  display: flex;\n  align-items: center;\n  margin: 3px;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p span {\n  background-color: red;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 15px;\n  height: 15px;\n  border-radius: 50%;\n  position: relative;\n  margin-left: 5px;\n  cursor: pointer;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p span::after {\n  content: \"X\";\n  font-size: 0.5em;\n  display: inline-block;\n  position: absolute;\n  color: white;\n  top: 50%;\n  transform: translateY(-45%);\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p span:active {\n  background-color: black;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder button {\n  cursor: pointer;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 5px;\n  padding: 7px;\n  font-size: 1em;\n  width: 50%;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder button:active {\n  background-color: black;\n  color: white;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder p.productsPage {\n  padding-top: 15px;\n  text-align: left;\n  font-size: 0.7em;\n}/*# sourceMappingURL=style.css.map */", "",{"version":3,"sources":["webpack://./src/assets/css/partials/common/_animation.scss","webpack://./src/assets/css/style.css","webpack://./src/assets/css/partials/common/_footer.scss","webpack://./src/assets/css/partials/common/_commons.scss","webpack://./src/assets/css/partials/common/_header.scss","webpack://./src/assets/css/partials/pages/_indexMain.scss","webpack://./src/assets/css/partials/pages/_loginMain.scss"],"names":[],"mappings":"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","sourceRoot":""}]);
+___CSS_LOADER_EXPORT___.push([module.id, "@keyframes dropDown {\n  0% {\n    top: 125%;\n    opacity: 0;\n  }\n  100% {\n    top: 100%;\n    opacity: 1;\n  }\n}\nfooter.ftfooter {\n  text-align: center;\n  padding: 20px;\n  background-color: rgb(201, 201, 201);\n}\n\n* {\n  margin: 0;\n  padding: 0;\n  box-sizing: border-box;\n}\n\nbody {\n  font-family: Arial, Helvetica, sans-serif;\n}\n\n.container {\n  width: 800px;\n  margin: auto;\n}\n\n.none {\n  display: none;\n}\n\nheader.hrheader {\n  display: flex;\n  justify-content: space-between;\n  align-items: center;\n  height: 75px;\n  padding: 0 65px;\n}\nheader.hrheader h1.title {\n  font-size: 2.5em;\n  font-weight: 900;\n}\nheader.hrheader h1.title a {\n  text-decoration: none;\n  color: black;\n}\nheader.hrheader nav.navbar ul.menu {\n  list-style: none;\n  display: flex;\n  align-items: center;\n}\nheader.hrheader nav.navbar ul.menu > li {\n  position: relative;\n  margin: 0 5px;\n}\nheader.hrheader nav.navbar ul.menu > li a {\n  display: block;\n  padding: 15px 25px;\n  text-decoration: none;\n  color: black;\n  font-size: 0.9em;\n  font-weight: bold;\n  transition: color 500ms ease;\n}\nheader.hrheader nav.navbar ul.menu > li a:hover {\n  color: grey;\n}\nheader.hrheader nav.navbar ul.menu > li ul.submenu {\n  background-color: white;\n  box-shadow: 0 0 5px grey;\n  list-style: none;\n  left: -1000000%;\n  position: absolute;\n  opacity: 0;\n  min-width: 100%;\n}\nheader.hrheader nav.navbar ul.menu > li:hover ul.submenu {\n  left: 0;\n  opacity: 1;\n  animation: dropDown 250ms ease 0ms 1 normal forwards;\n}\nheader.hrheader nav.navbar ul.menu > li:first-child a {\n  background-color: black;\n  color: white;\n  border-radius: 25px;\n}\nheader.hrheader nav.navbar ul.menu > li:nth-child(2) > a:hover {\n  color: black;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child {\n  margin: 0 0 0 5px;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a {\n  padding: 0;\n  position: relative;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a img {\n  width: 25px;\n}\nheader.hrheader nav.navbar ul.menu > li:last-child a span {\n  position: absolute;\n  background-color: black;\n  color: white;\n  height: 20px;\n  width: 20px;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  border-radius: 50%;\n  right: -35%;\n  top: -25%;\n}\n\nmain.mnmainContent {\n  width: 1250px;\n  margin: auto;\n  margin-top: 100px;\n  margin-bottom: 100px;\n}\nmain.mnmainContent div.container {\n  text-align: center;\n}\nmain.mnmainContent div.container h2.title {\n  font-size: 3em;\n  font-weight: 100;\n  padding-bottom: 25px;\n  color: red;\n}\nmain.mnmainContent div.container p.text {\n  text-align: left;\n  font-size: 1.6em;\n}\nmain.mnmainContent div.img {\n  padding: 75px 0;\n}\nmain.mnmainContent div.img img {\n  width: 100%;\n}\n\nmain.lgmainContent {\n  padding: 100px 0;\n}\nmain.lgmainContent div.divLogin {\n  display: flex;\n  justify-content: space-between;\n}\nmain.lgmainContent div.divLogin div.divCadastro h2.title, main.lgmainContent div.divLogin div.subDivLogin h2.title {\n  text-align: center;\n  padding-bottom: 15px;\n}\nmain.lgmainContent div.divLogin div.divCadastro form.formCadastro label, main.lgmainContent div.divLogin div.divCadastro form.formLogin label, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro label, main.lgmainContent div.divLogin div.subDivLogin form.formLogin label {\n  display: block;\n  padding-top: 15px;\n}\nmain.lgmainContent div.divLogin div.divCadastro form.formCadastro input, main.lgmainContent div.divLogin div.divCadastro form.formLogin input, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro input, main.lgmainContent div.divLogin div.subDivLogin form.formLogin input {\n  padding: 5px 10px;\n  font-size: 1em;\n  width: 100%;\n  margin-top: 5px;\n}\nmain.lgmainContent div.divLogin div.divCadastro form.formCadastro button, main.lgmainContent div.divLogin div.divCadastro form.formLogin button, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro button, main.lgmainContent div.divLogin div.subDivLogin form.formLogin button {\n  margin-top: 25px;\n  width: 100%;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 25px;\n  padding: 10px 0;\n  font-size: 1em;\n  cursor: pointer;\n  transition: background-color 250ms ease, color 250ms ease, border-color 250ms ease;\n}\nmain.lgmainContent div.divLogin div.divCadastro form.formCadastro button:hover, main.lgmainContent div.divLogin div.divCadastro form.formLogin button:hover, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro button:hover, main.lgmainContent div.divLogin div.subDivLogin form.formLogin button:hover {\n  background-color: black;\n  color: white;\n  border-color: blue;\n}\nmain.lgmainContent div.divLogin div.divCadastro form.formCadastro button:active, main.lgmainContent div.divLogin div.divCadastro form.formLogin button:active, main.lgmainContent div.divLogin div.subDivLogin form.formCadastro button:active, main.lgmainContent div.divLogin div.subDivLogin form.formLogin button:active {\n  background-color: blue;\n}\nmain.lgmainContent div.logFeito div.topContent {\n  text-align: center;\n}\nmain.lgmainContent div.logFeito div.topContent h2.title {\n  font-size: 2.5em;\n  padding: 0 0 25px 0;\n}\nmain.lgmainContent div.logFeito div.topContent p.text {\n  font-size: 1.3em;\n}\nmain.lgmainContent div.logFeito div.infos {\n  padding: 50px 0 0;\n  text-align: center;\n}\nmain.lgmainContent div.logFeito div.infos > button {\n  width: 45%;\n  padding: 15px;\n  background-color: white;\n  font-size: 1em;\n  cursor: pointer;\n  border-radius: 15px;\n}\nmain.lgmainContent div.logFeito div.infos > button:active {\n  background-color: black;\n  color: white;\n}\nmain.lgmainContent div.logFeito div.infos h3.title {\n  font-size: 1.8em;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList {\n  list-style: none;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList li {\n  padding: 15px 0;\n  position: relative;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList span.delete {\n  position: absolute;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  color: white;\n  height: 30px;\n  width: 30px;\n  background-color: red;\n  border-radius: 50%;\n  top: 50%;\n  right: 0;\n  transform: translateY(-50%);\n  cursor: pointer;\n  transition: background-color 250ms ease;\n  user-select: none;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList span.delete::after {\n  content: \"X\";\n  position: absolute;\n  display: inline-block;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList span.delete:hover {\n  background-color: darkred;\n}\nmain.lgmainContent div.logFeito div.infos ul.ordersList span.delete:active {\n  background-color: black;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder {\n  padding: 25px 0 0;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products label {\n  display: block;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products input {\n  display: block;\n  padding: 7px 0 7px 15px;\n  border-radius: 5px;\n  border: 1px solid black;\n  font-size: 1em;\n  width: 50%;\n  margin: auto;\n  margin-top: 15px;\n  margin-bottom: 15px;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts {\n  margin: 10px 0;\n  padding: 15px;\n  border: 1px solid black;\n  border-radius: 10px;\n  box-shadow: 0 0 5px gray;\n  display: flex;\n  flex-wrap: wrap;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p {\n  border: 1px solid black;\n  width: fit-content;\n  padding: 5px;\n  border-radius: 10px;\n  display: flex;\n  align-items: center;\n  margin: 3px;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p span {\n  background-color: red;\n  display: flex;\n  align-items: center;\n  justify-content: center;\n  width: 15px;\n  height: 15px;\n  border-radius: 50%;\n  position: relative;\n  margin-left: 5px;\n  cursor: pointer;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p span::after {\n  content: \"X\";\n  font-size: 0.5em;\n  display: inline-block;\n  position: absolute;\n  color: white;\n  top: 50%;\n  transform: translateY(-45%);\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.products div.choosedProducts p span:active {\n  background-color: black;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder button {\n  cursor: pointer;\n  background-color: white;\n  border: 1px solid black;\n  border-radius: 5px;\n  padding: 7px;\n  font-size: 1em;\n  width: 50%;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder button:active {\n  background-color: black;\n  color: white;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder p.productsPage {\n  padding-top: 15px;\n  text-align: left;\n  font-size: 0.7em;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.newOrder {\n  background-color: rgba(0, 0, 0, 0.45);\n  min-width: 100vw;\n  min-height: 100vh;\n  position: fixed;\n  top: 0;\n  left: 0;\n  display: flex;\n  justify-content: center;\n  align-items: center;\n  cursor: pointer;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order {\n  padding: 25px;\n  width: 500px;\n  background-color: white;\n  cursor: initial;\n  z-index: 5;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order h4.title {\n  font-size: 2.5em;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order p.text {\n  padding: 25px 0;\n  font-size: 1em;\n  text-align: left;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order p.text span {\n  display: block;\n  padding: 5px 0;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order p.text span.lineHead {\n  display: inline;\n  font-weight: bold;\n  padding: 0;\n}\nmain.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order span.warnMessage {\n  text-align: right;\n  padding-top: 5px;\n  display: block;\n  font-size: 0.6em;\n}/*# sourceMappingURL=style.css.map */", "",{"version":3,"sources":["webpack://./src/assets/css/partials/common/_animation.scss","webpack://./src/assets/css/style.css","webpack://./src/assets/css/partials/common/_footer.scss","webpack://./src/assets/css/partials/common/_commons.scss","webpack://./src/assets/css/partials/common/_header.scss","webpack://./src/assets/css/partials/pages/_indexMain.scss","webpack://./src/assets/css/partials/pages/_loginMain.scss"],"names":[],"mappings":"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","sourceRoot":""}]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 

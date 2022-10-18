@@ -194,6 +194,52 @@ main.lgmainContent{
                     text-align: left;
                     font-size: 0.7em;
                 }
+
+                div.newOrder{
+                    background-color: rgba(0, 0, 0, 0.45);
+                    min-width: 100vw;
+                    min-height: 100vh;
+                    position: fixed;
+                    top: 0;
+                    left: 0;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
+                    cursor: pointer;
+                    div#Order{
+                        padding: 25px;
+                        width: 500px;
+                        background-color: white;
+                        cursor: initial;
+                        z-index: 5;
+
+                        h4.title{
+                            font-size: 2.5em;
+                        }
+
+                        p.text{
+                            padding: 25px 0;
+                            font-size: 1em;
+                            text-align: left;
+                            span{
+                                display: block;
+                                padding: 5px 0;
+                                &.lineHead{
+                                    display: inline;
+                                    font-weight: bold;
+                                    padding: 0;
+                                }
+                            }
+                        }
+
+                        span.warnMessage{
+                            text-align: right;
+                            padding-top: 5px;
+                            display: block;
+                            font-size: 0.6em;
+                        }
+                    }
+                }
             }
         }
     }

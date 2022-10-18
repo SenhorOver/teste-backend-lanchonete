@@ -321,4 +321,46 @@ main.lgmainContent div.logFeito div.infos div.createOrder p.productsPage {
   padding-top: 15px;
   text-align: left;
   font-size: 0.7em;
+}
+main.lgmainContent div.logFeito div.infos div.createOrder div.newOrder {
+  background-color: rgba(0, 0, 0, 0.45);
+  min-width: 100vw;
+  min-height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+main.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order {
+  padding: 25px;
+  width: 500px;
+  background-color: white;
+  cursor: initial;
+  z-index: 5;
+}
+main.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order h4.title {
+  font-size: 2.5em;
+}
+main.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order p.text {
+  padding: 25px 0;
+  font-size: 1em;
+  text-align: left;
+}
+main.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order p.text span {
+  display: block;
+  padding: 5px 0;
+}
+main.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order p.text span.lineHead {
+  display: inline;
+  font-weight: bold;
+  padding: 0;
+}
+main.lgmainContent div.logFeito div.infos div.createOrder div.newOrder div#Order span.warnMessage {
+  text-align: right;
+  padding-top: 5px;
+  display: block;
+  font-size: 0.6em;
 }/*# sourceMappingURL=style.css.map */

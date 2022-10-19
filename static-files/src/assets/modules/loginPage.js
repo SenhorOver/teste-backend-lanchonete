@@ -169,6 +169,7 @@ export const Main = {
                 .then(data => {
                     if(data.message === 'success'){
                         this.Events.click_listOrder.bind(this)()
+                        //Criar função que coloca botão de remover, pois não precisa ficar ali os pedidos que já foram cancelados, e esses botões de remover vão receber o mesmo método de remover,como eu fiz da última vez
                         return
                     }
                     alert('Ocorreu um erro')
@@ -217,7 +218,6 @@ export const Main = {
                 let prices = 0
                 
                 for(let num = 0; num < productsTog.length; num++){
-                    console.log('alou')
                     ids.forEach((id, ix) => {
                         if(id === productsTog[num]){
                             names.push(productsFetch.product[ix].name)
@@ -226,20 +226,18 @@ export const Main = {
                     })
                 }
                 
-                
+                if(vl.status === 'Cancelado') return
                 ul.innerHTML += `
                 <li>
                     <h4 class="title">
                         Pedido: ${names.join(' - ')}
                     </h4>
                     <p class="price">Valor(R$): ${prices.toFixed(2)}</p>
-                    <p class="status">status: ${vl.status}</p>
+                    <p class="status">status: <b>${vl.status}</b></p>
                     <p class="date">Data: ${vl.date}</p>
                     <span class="delete deleteListItem" data-id="${vl._id}"></span>
                 </li>
                 `
-                console.log(productsTog)
-                console.log(names, prices.toFixed(2))
             })
             ul.innerHTML += `
                 <span>

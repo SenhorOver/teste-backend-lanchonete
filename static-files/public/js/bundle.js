@@ -1,6 +1,40 @@
 /******/ (() => { // webpackBootstrap
-/******/ 	"use strict";
 /******/ 	var __webpack_modules__ = ({
+
+/***/ "./src/assets/modules/admLogin.js":
+/*!****************************************!*\
+  !*** ./src/assets/modules/admLogin.js ***!
+  \****************************************/
+/***/ ((module) => {
+
+function initialAdm() {
+  var button = document.querySelector('#btn-admPage');
+  var inputs = document.querySelectorAll('.ipt-admLogin');
+  button.addEventListener('click', function (e) {
+    var name = inputs[0].value;
+    var id = inputs[1].value;
+    fetch("http://localhost:8080/api/admPage", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: name,
+        id: id
+      })
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      return console.log(data);
+    });
+  });
+}
+
+module.exports = {
+  initialAdm: initialAdm
+};
+
+/***/ }),
 
 /***/ "./src/assets/modules/loginPage.js":
 /*!*****************************************!*\
@@ -8,6 +42,7 @@
   \*****************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "Main": () => (/* binding */ Main)
@@ -246,7 +281,8 @@ var Main = {
         return response.json();
       }).then(function (data) {
         if (data.message === 'success') {
-          _this6.Events.click_listOrder.bind(_this6)();
+          _this6.Events.click_listOrder.bind(_this6)(); //Criar função que coloca botão de remover, pois não precisa ficar ali os pedidos que já foram cancelados, e esses botões de remover vão receber o mesmo método de remover,como eu fiz da última vez
+
 
           return;
         }
@@ -304,7 +340,6 @@ var Main = {
                   var prices = 0;
 
                   var _loop = function _loop(num) {
-                    console.log('alou');
                     ids.forEach(function (id, ix) {
                       if (id === productsTog[num]) {
                         names.push(productsFetch.product[ix].name);
@@ -317,9 +352,8 @@ var Main = {
                     _loop(num);
                   }
 
-                  ul.innerHTML += "\n                <li>\n                    <h4 class=\"title\">\n                        Pedido: ".concat(names.join(' - '), "\n                    </h4>\n                    <p class=\"price\">Valor(R$): ").concat(prices.toFixed(2), "</p>\n                    <p class=\"status\">status: ").concat(vl.status, "</p>\n                    <p class=\"date\">Data: ").concat(vl.date, "</p>\n                    <span class=\"delete deleteListItem\" data-id=\"").concat(vl._id, "\"></span>\n                </li>\n                ");
-                  console.log(productsTog);
-                  console.log(names, prices.toFixed(2));
+                  if (vl.status === 'Cancelado') return;
+                  ul.innerHTML += "\n                <li>\n                    <h4 class=\"title\">\n                        Pedido: ".concat(names.join(' - '), "\n                    </h4>\n                    <p class=\"price\">Valor(R$): ").concat(prices.toFixed(2), "</p>\n                    <p class=\"status\">status: <b>").concat(vl.status, "</b></p>\n                    <p class=\"date\">Data: ").concat(vl.date, "</p>\n                    <span class=\"delete deleteListItem\" data-id=\"").concat(vl._id, "\"></span>\n                </li>\n                ");
                 });
                 ul.innerHTML += "\n                <span>\n                    S\xF3 \xE9 poss\xEDvel cancelar um pedido enquanto seu status for anterior a 'Em entrega' De acordo com a lei tal n\xBAtal - Status: Pendente, Em preparo, Em entrega, Entregue\n                </span>\n            ";
 
@@ -451,6 +485,7 @@ var Main = {
   \************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -477,6 +512,7 @@ ___CSS_LOADER_EXPORT___.push([module.id, "@keyframes dropDown {\n  0% {\n    top
   \*****************************************************/
 /***/ ((module) => {
 
+"use strict";
 
 
 /*
@@ -588,6 +624,7 @@ module.exports = function (cssWithMappingToString) {
   \************************************************************/
 /***/ ((module) => {
 
+"use strict";
 
 
 module.exports = function (item) {
@@ -619,6 +656,7 @@ module.exports = function (item) {
   \**********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
+"use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
@@ -673,6 +711,7 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
   \****************************************************************************/
 /***/ ((module) => {
 
+"use strict";
 
 
 var stylesInDOM = [];
@@ -786,6 +825,7 @@ module.exports = function (list, options) {
   \********************************************************************/
 /***/ ((module) => {
 
+"use strict";
 
 
 var memo = {};
@@ -834,6 +874,7 @@ module.exports = insertBySelector;
   \**********************************************************************/
 /***/ ((module) => {
 
+"use strict";
 
 
 /* istanbul ignore next  */
@@ -854,6 +895,7 @@ module.exports = insertStyleElement;
   \**********************************************************************************/
 /***/ ((module, __unused_webpack_exports, __webpack_require__) => {
 
+"use strict";
 
 
 /* istanbul ignore next  */
@@ -875,6 +917,7 @@ module.exports = setAttributesWithoutAttributes;
   \***************************************************************/
 /***/ ((module) => {
 
+"use strict";
 
 
 /* istanbul ignore next  */
@@ -954,6 +997,7 @@ module.exports = domAPI;
   \*********************************************************************/
 /***/ ((module) => {
 
+"use strict";
 
 
 /* istanbul ignore next  */
@@ -1047,19 +1091,27 @@ module.exports = styleTagTransform;
 /******/ 	
 /************************************************************************/
 var __webpack_exports__ = {};
-// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
 (() => {
+"use strict";
 /*!*********************!*\
   !*** ./src/main.js ***!
   \*********************/
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _assets_css_style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./assets/css/style.css */ "./src/assets/css/style.css");
 /* harmony import */ var _assets_modules_loginPage__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./assets/modules/loginPage */ "./src/assets/modules/loginPage.js");
+/* harmony import */ var _assets_modules_admLogin__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./assets/modules/admLogin */ "./src/assets/modules/admLogin.js");
+/* harmony import */ var _assets_modules_admLogin__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_assets_modules_admLogin__WEBPACK_IMPORTED_MODULE_2__);
+
 
 
 
 try {
   _assets_modules_loginPage__WEBPACK_IMPORTED_MODULE_1__.Main.init();
+} catch (e) {}
+
+try {
+  (0,_assets_modules_admLogin__WEBPACK_IMPORTED_MODULE_2__.initialAdm)();
 } catch (e) {}
 })();
 

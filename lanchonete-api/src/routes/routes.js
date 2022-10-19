@@ -28,6 +28,6 @@ router.put('/order/:id', orderController.put) //Enviar ID do próprio pedido
 router.delete('/order/:id', orderController.del) //Id do próprio pedido
 
 //Send ADM Page
-router.post('/admPage/:id/:name', admPageController.post)
+router.post('/admPage', admPageController.post)
 
 module.exports = {router}

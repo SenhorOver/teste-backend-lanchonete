@@ -29,7 +29,7 @@ export const Main = {
             const $btnDeleteListItem = document.querySelectorAll('.deleteListItem')
     
             $btnDeleteListItem.forEach(vl => {
-                vl.onclick = this.formEvents.click_removeProduct.bind(this)
+                vl.onclick = this.Events.click_cancelProduct.bind(this)
             })
         } catch(e){}
         
@@ -152,6 +152,27 @@ export const Main = {
                 }
                 alert('Ocorreu um erro')
             })
+        },
+
+        click_cancelProduct(e){
+            const el = e.target
+            const id = el.dataset.id
+            
+            fetch(`http://localhost:8080/api/order/${id}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    status: 'Cancelado'
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.message === 'success'){
+                        this.Events.click_listOrder.bind(this)()
+                        return
+                    }
+                    alert('Ocorreu um erro')
+                })
         }
     },
 
@@ -178,7 +199,6 @@ export const Main = {
             const form = document.querySelector('.createOrder')
             list.classList.remove('none')
             form.classList.add('none')
-            //Falta fazer o código que irá estruturar o conteúdo, mas eu tenho primeiro que fazer a criação de um novo pedido
         },
 
         async createListItems(data){
@@ -220,7 +240,12 @@ export const Main = {
                 `
                 console.log(productsTog)
                 console.log(names, prices.toFixed(2))
-            })  
+            })
+            ul.innerHTML += `
+                <span>
+                    Só é possível cancelar um pedido enquanto seu status for anterior a 'Em entrega' De acordo com a lei tal nºtal - Status: Pendente, Em preparo, Em entrega, Entregue
+                </span>
+            `
         },
 
 

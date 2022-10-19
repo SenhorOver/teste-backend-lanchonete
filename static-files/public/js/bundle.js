@@ -49,7 +49,7 @@ var Main = {
     try {
       var $btnDeleteListItem = document.querySelectorAll('.deleteListItem');
       $btnDeleteListItem.forEach(function (vl) {
-        vl.onclick = _this.formEvents.click_removeProduct.bind(_this);
+        vl.onclick = _this.Events.click_cancelProduct.bind(_this);
       });
     } catch (e) {}
 
@@ -228,6 +228,31 @@ var Main = {
 
         alert('Ocorreu um erro');
       });
+    },
+    click_cancelProduct: function click_cancelProduct(e) {
+      var _this6 = this;
+
+      var el = e.target;
+      var id = el.dataset.id;
+      fetch("http://localhost:8080/api/order/".concat(id), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          status: 'Cancelado'
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        if (data.message === 'success') {
+          _this6.Events.click_listOrder.bind(_this6)();
+
+          return;
+        }
+
+        alert('Ocorreu um erro');
+      });
     }
   },
   fetchResponses: {
@@ -249,7 +274,7 @@ var Main = {
       var list = document.querySelector('.ordersList');
       var form = document.querySelector('.createOrder');
       list.classList.remove('none');
-      form.classList.add('none'); //Falta fazer o código que irá estruturar o conteúdo, mas eu tenho primeiro que fazer a criação de um novo pedido
+      form.classList.add('none');
     },
     createListItems: function createListItems(data) {
       return _asyncToGenerator( /*#__PURE__*/_regeneratorRuntime().mark(function _callee3() {
@@ -296,8 +321,9 @@ var Main = {
                   console.log(productsTog);
                   console.log(names, prices.toFixed(2));
                 });
+                ul.innerHTML += "\n                <span>\n                    S\xF3 \xE9 poss\xEDvel cancelar um pedido enquanto seu status for anterior a 'Em entrega' De acordo com a lei tal n\xBAtal - Status: Pendente, Em preparo, Em entrega, Entregue\n                </span>\n            ";
 
-              case 10:
+              case 11:
               case "end":
                 return _context3.stop();
             }
@@ -306,7 +332,7 @@ var Main = {
       }))();
     },
     fillOrdersProducts: function fillOrdersProducts() {
-      var _this6 = this;
+      var _this7 = this;
 
       fetch('http://localhost:8080/api/product').then(function (response) {
         return response.json();
@@ -316,7 +342,7 @@ var Main = {
           var datalist = document.querySelector('#products');
           datalist.innerHTML = '';
           products.forEach(function (vl) {
-            datalist.innerHTML += _this6.formEventsFunctions.addDatalistProducts(vl);
+            datalist.innerHTML += _this7.formEventsFunctions.addDatalistProducts(vl);
           });
           return;
         }

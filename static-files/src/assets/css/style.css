@@ -212,10 +212,17 @@ main.lgmainContent div.logFeito div.infos h3.title {
 }
 main.lgmainContent div.logFeito div.infos ul.ordersList {
   list-style: none;
+  padding: 25px 0;
 }
 main.lgmainContent div.logFeito div.infos ul.ordersList li {
   padding: 15px 0;
   position: relative;
+  border: 1px solid black;
+  border-radius: 10px;
+  margin-bottom: 5px;
+}
+main.lgmainContent div.logFeito div.infos ul.ordersList li p.price {
+  margin: 5px 0;
 }
 main.lgmainContent div.logFeito div.infos ul.ordersList span.delete {
   position: absolute;
@@ -228,7 +235,7 @@ main.lgmainContent div.logFeito div.infos ul.ordersList span.delete {
   background-color: red;
   border-radius: 50%;
   top: 50%;
-  right: 0;
+  right: 25px;
   transform: translateY(-50%);
   cursor: pointer;
   transition: background-color 250ms ease;

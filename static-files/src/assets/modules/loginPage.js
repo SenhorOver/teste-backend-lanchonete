@@ -103,13 +103,15 @@ export const Main = {
 
             fetch(`http://localhost:8080/api/order/${id}`)
                 .then(response => response.json())
-                .then(data => {
+                .then(async data => {
                     if(data.message === 'success'){
                         if(!data.order[0]){
                             alert('Ainda não foi efetuado nenhum pedido')
                             return
                         }
-                        this.fetchResponses.structureOrdersList(data)
+                        this.fetchResponses.structureOrdersList()
+                        await this.fetchResponses.createListItems(data)
+                        this.cacheSelectors()
                         return
                     }
                     alert('Deu erro')
@@ -171,13 +173,54 @@ export const Main = {
             loginFeito.classList.remove('none')
         },
 
-        structureOrdersList(data){
+        structureOrdersList(){
             const list = document.querySelector('.ordersList')
             const form = document.querySelector('.createOrder')
             list.classList.remove('none')
             form.classList.add('none')
-
             //Falta fazer o código que irá estruturar o conteúdo, mas eu tenho primeiro que fazer a criação de um novo pedido
+        },
+
+        async createListItems(data){
+            const ul = document.querySelector('.ordersList')
+            const response = await fetch('http://localhost:8080/api/product')
+            const productsFetch = await response.json()
+            
+            const ids = productsFetch.product.map(vl => {
+                return vl._id
+            })
+            
+            ul.innerHTML = ''
+            data.order.forEach(vl => {
+                const productsTog = vl.productCode.split('-')
+                let names = []
+                let prices = 0
+                
+                for(let num = 0; num < productsTog.length; num++){
+                    console.log('alou')
+                    ids.forEach((id, ix) => {
+                        if(id === productsTog[num]){
+                            names.push(productsFetch.product[ix].name)
+                            prices = prices + Number(productsFetch.product[ix].price)
+                        }
+                    })
+                }
+                
+                
+                ul.innerHTML += `
+                <li>
+                    <h4 class="title">
+                        Pedido: ${names.join(' - ')}
+                    </h4>
+                    <p class="price">Valor(R$): ${prices.toFixed(2)}</p>
+                    <p class="status">status: ${vl.status}</p>
+                    <p class="date">Data: ${vl.date}</p>
+                    <span class="delete deleteListItem" data-id="${vl._id}"></span>
+                </li>
+                `
+                console.log(productsTog)
+                console.log(names, prices.toFixed(2))
+            })  
         },
 
 

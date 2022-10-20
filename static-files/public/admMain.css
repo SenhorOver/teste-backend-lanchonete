@@ -95,20 +95,26 @@ main.admMain div.container section.admClients div.clickedOrders {
 }
 main.admMain div.container section.admClients div.clickedOrders h3.title {
   font-size: 1.5em;
+  margin-bottom: 25px;
 }
 main.admMain div.container section.admClients div.clickedOrders ul.admClientOrderList {
   list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
 }
 main.admMain div.container section.admClients div.clickedOrders ul.admClientOrderList li {
   padding: 15px;
   border: 1px solid black;
   border-radius: 10px;
   box-shadow: 0 0 5px gray;
-  width: fit-content;
+  width: 49%;
+  margin-bottom: 25px;
 }
 main.admMain div.container section.admClients div.clickedOrders ul.admClientOrderList li span.admClickedOrdersList {
   display: block;
   padding: 5px 0;
+  border-bottom: 1px solid black;
 }
 
 footer.admFooter {

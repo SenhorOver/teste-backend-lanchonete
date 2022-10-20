@@ -1,10 +1,11 @@
 const {admPageModel} = require('../models/admPageModel')
 
 async function post(req, res){
-    const {name, id} = req.body
+    let {name, id} = req.body
     let msg = 'success'
     let page;
     try{
+        // if(!name || !id) throw new Error('deu erro')
         page = await admPageModel.findById(id)
     } catch(e){
         msg = 'error'

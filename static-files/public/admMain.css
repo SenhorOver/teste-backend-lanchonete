@@ -1,1 +1,118 @@
-/*# sourceMappingURL=admMain.css.map */
+header.admHeader {
+  background-color: plum;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 50px;
+  height: 60px;
+}
+header.admHeader h1 {
+  font-weight: bolder;
+  user-select: none;
+  font-size: 2.7em;
+}
+header.admHeader nav.navbar ul.menu {
+  display: flex;
+  align-items: center;
+  list-style: none;
+}
+header.admHeader nav.navbar ul.menu li {
+  margin: 0 5px;
+}
+header.admHeader nav.navbar ul.menu li button {
+  background-color: purple;
+  color: white;
+  font-size: 1em;
+  border: none;
+  border-radius: 10px;
+  padding: 5px;
+  cursor: pointer;
+  transition: background-color 250ms ease, color 250ms ease;
+}
+header.admHeader nav.navbar ul.menu li button:hover {
+  background-color: white;
+  color: black;
+}
+
+main.admMain {
+  padding: 100px 0;
+}
+main.admMain div.container {
+  width: 900px;
+}
+main.admMain div.container h2.title {
+  text-align: center;
+  font-size: 2em;
+}
+main.admMain div.container section.admClients {
+  padding: 25px 0;
+}
+main.admMain div.container section.admClients ul.admClientsList {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: left;
+}
+main.admMain div.container section.admClients ul.admClientsList li {
+  position: relative;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0 0 5px gray;
+  padding: 10px 5px;
+  margin: 5px;
+  margin-bottom: 25px;
+  max-width: 23.5%;
+}
+main.admMain div.container section.admClients ul.admClientsList li span.admClientsData {
+  display: block;
+  padding: 10px;
+  border-bottom: 1px solid black;
+}
+main.admMain div.container section.admClients ul.admClientsList li span.clientsOrders {
+  display: block;
+  position: absolute;
+  background-color: blue;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  right: -20px;
+  top: 0;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+}
+main.admMain div.container section.admClients ul.admClientsList li span.clientsOrders::after {
+  content: "O";
+  color: white;
+  position: absolute;
+  transform: translate(50%, 50%);
+  top: -5px;
+}
+main.admMain div.container section.admClients ul.admClientsList li span.clientsOrders:active {
+  background-color: black;
+}
+main.admMain div.container section.admClients div.clickedOrders {
+  padding-top: 50px;
+}
+main.admMain div.container section.admClients div.clickedOrders h3.title {
+  font-size: 1.5em;
+}
+main.admMain div.container section.admClients div.clickedOrders ul.admClientOrderList {
+  list-style: none;
+}
+main.admMain div.container section.admClients div.clickedOrders ul.admClientOrderList li {
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0 0 5px gray;
+  width: fit-content;
+}
+main.admMain div.container section.admClients div.clickedOrders ul.admClientOrderList li span.admClickedOrdersList {
+  display: block;
+  padding: 5px 0;
+}
+
+footer.admFooter {
+  background-color: plum;
+  text-align: center;
+  padding: 25px;
+}/*# sourceMappingURL=admMain.css.map */

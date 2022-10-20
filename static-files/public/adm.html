@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="admMain.css">
 </head>
 <body>
-    <header class="hrheader">
+    <!-- <header class="hrheader">
         <h1 class="title"><a href="index.html">LANCHES</a></h1>
         <nav class="navbar">
             <ul class="menu">
@@ -37,6 +37,80 @@
     <footer class="ftfooter">
         Todos os direitos reservador ₢
     </footer>
+    <script src="js/bundle.js"></script> -->
+    
+    <header class="admHeader">
+        <h1>LOGO</h1>
+        <nav class="navbar">
+            <ul class="menu">
+                <li><button id="adm-btnShClients">Clients</button></li>
+                <li><button id="adm-btnShAllOrders">All Orders</button></li>
+                <li><button id="adm-btnShProducts">Products</button></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="admMain">
+        <div class="container">
+            <h2 class="title">Selecione o que deseja alterar no menu acima</h2>
+            
+            <section class="admClients">
+                <ul class="admClientsList">
+                    <li>
+                        <span class="admClientsData"><b>Name:</b> Marcos</span>
+                        <span class="admClientsData"><b>Email:</b> Marcos@tal.com</span>
+                        <span class="admClientsData"><b>Phone:</b> 11 99999999</span>
+                        <span class="admClientsData"><b>Address:</b> rua tal, 09000</span>
+                        <span class="clientsOrders"></span>
+                    </li>
+                    <li>
+                        <span class="admClientsData"><b>Name:</b> Marcos</span>
+                        <span class="admClientsData"><b>Email:</b> Marcos@tal.com</span>
+                        <span class="admClientsData"><b>Phone:</b> 11 99999999</span>
+                        <span class="admClientsData"><b>Address:</b> rua tal maior que o normal, 09000</span>
+                    </li>
+                    <li>
+                        <span class="admClientsData"><b>Name:</b> Marcos</span>
+                        <span class="admClientsData"><b>Email:</b> Marcos@tal.com</span>
+                        <span class="admClientsData"><b>Phone:</b> 11 99999999</span>
+                        <span class="admClientsData"><b>Address:</b> rua tal, 09000</span>
+                    </li>
+                    <li>
+                        <span class="admClientsData"><b>Name:</b> Marcos</span>
+                        <span class="admClientsData"><b>Email:</b> Marcos@tal.com</span>
+                        <span class="admClientsData"><b>Phone:</b> 11 99999999</span>
+                        <span class="admClientsData"><b>Address:</b> rua tal, 09000</span>
+                    </li>
+                </ul>
+
+
+                <div class="clickedOrders">
+                    <h3 class="title">Pedidos de Nome Pessoa</h3>
+                    <ul class="admClientOrderList">
+                        <li>
+                            <span class="admClickedOrdersList"><b>Order:</b> Nomes Pedidos</span>
+                            <span class="admClickedOrdersList"><b>OrderIds:</b> Ids </span>
+                            <span class="admClickedOrdersList"><b>Price:</b> 99 Preço</span>
+                            <span class="admClickedOrdersList"><b>Date:</b> Data</span>
+                            <span class="admClickedOrdersList"><b>ClientCode:</b> Id Cliente </span>
+                            <span class="admClickedOrdersList"><b>Status:</b> Status atual</span>
+                            <div class="admChangeStatus">
+                                <!--Select para mudar o status-->
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </section>
+        
+        </div>
+    </main>
+
+    <footer class="admFooter">
+        Todos os direitos reservados
+    </footer>
+    
+    
+    <script src="admMain.js"></script>
     <script src="js/bundle.js"></script>
 </body>
 </html>

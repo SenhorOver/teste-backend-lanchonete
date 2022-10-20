@@ -25,7 +25,14 @@ function initialAdm() {
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
-      return console.log(data);
+      if (data.message === 'success') {
+        var body = document.querySelector('body'); //substituir body com o conteúdo de htmlPage
+
+        console.log(data);
+        return;
+      }
+
+      alert('Erro');
     });
   });
 }

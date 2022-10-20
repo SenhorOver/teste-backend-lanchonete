@@ -12,7 +12,15 @@ function initialAdm(){
             body: JSON.stringify({name, id})
         })
             .then(response => response.json())
-            .then(data => console.log(data))
+            .then(data => {
+                if(data.message === 'success'){
+                    const body = document.querySelector('body')
+                    //substituir body com o conteúdo de htmlPage
+                    console.log(data)
+                    return
+                }
+                alert('Erro')
+            })
     })
 }
 

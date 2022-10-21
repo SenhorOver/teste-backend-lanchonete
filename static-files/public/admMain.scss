@@ -140,6 +140,48 @@ main.admMain{
                 }
             }
         }
+
+        section.admAllOrders{
+            padding: 50px 0 0;
+            ul.admAOList{
+                padding: 25px 0;
+                list-style: none;
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+                li{
+                    padding: 15px;
+                    border: 1px solid black;
+                    border-radius: 10px;
+                    box-shadow: 0 0 5px gray;
+                    width: 49%;
+                    margin-bottom: 25px;
+                    span.admClickedOrdersList{
+                        display: block;
+                        padding: 5px 0;
+                        border-bottom: 1px solid black;
+                    }
+                    div.admChangeStatus{
+                        padding: 15px 0;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+                        select{
+                            width: 49%;
+                            padding: 5px
+                        }
+                        button{
+                            width: 49%;
+                            padding: 5px;
+                            cursor: pointer;
+                        }
+                    }
+                }
+                &:last-child{
+                    padding-bottom: 0;
+                }
+            }
+        }
     }
 }
 

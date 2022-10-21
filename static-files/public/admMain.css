@@ -131,6 +131,47 @@ main.admMain div.container section.admClients div.clickedOrders ul.admClientOrde
   padding: 5px;
   cursor: pointer;
 }
+main.admMain div.container section.admAllOrders {
+  padding: 50px 0 0;
+}
+main.admMain div.container section.admAllOrders ul.admAOList {
+  padding: 25px 0;
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+main.admMain div.container section.admAllOrders ul.admAOList li {
+  padding: 15px;
+  border: 1px solid black;
+  border-radius: 10px;
+  box-shadow: 0 0 5px gray;
+  width: 49%;
+  margin-bottom: 25px;
+}
+main.admMain div.container section.admAllOrders ul.admAOList li span.admClickedOrdersList {
+  display: block;
+  padding: 5px 0;
+  border-bottom: 1px solid black;
+}
+main.admMain div.container section.admAllOrders ul.admAOList li div.admChangeStatus {
+  padding: 15px 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+main.admMain div.container section.admAllOrders ul.admAOList li div.admChangeStatus select {
+  width: 49%;
+  padding: 5px;
+}
+main.admMain div.container section.admAllOrders ul.admAOList li div.admChangeStatus button {
+  width: 49%;
+  padding: 5px;
+  cursor: pointer;
+}
+main.admMain div.container section.admAllOrders ul.admAOList:last-child {
+  padding-bottom: 0;
+}
 
 footer.admFooter {
   background-color: plum;

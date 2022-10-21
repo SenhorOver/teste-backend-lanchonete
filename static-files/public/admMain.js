@@ -26,6 +26,7 @@ const AdmPage = {
     bindEvents(){
         //Menu buttons
         this.btnShClients.onclick = this.Events.shClientsList.bind(this)
+        this.btnShAOrders.onclick = this.Events.shAllOrdersList.bind(this)
 
 
         //One client orders list
@@ -47,6 +48,14 @@ const AdmPage = {
             const admClients = document.querySelector('.admClients')
             const ulClients = document.querySelector('.admClientsList')
             const h2 = document.querySelector('.admMainTitle')
+            const container = document.querySelector('.container')
+            
+            for(let i = 0; i < container.children.length; i++){
+                if(i === 0) continue
+                container.children[i].classList.add('none')
+            }
+            
+            
 
             fetch(`${this.URL_API}/client`)
                 .then(response => response.json())
@@ -71,6 +80,7 @@ const AdmPage = {
             const clickedOrders = document.querySelector('.clickedOrders')
             const ul = document.querySelector('.admClientOrderList')
             
+
             fetch(`${this.URL_API}/order/${id}`)
             .then(response => response.json())
             .then(data => {
@@ -91,6 +101,7 @@ const AdmPage = {
                 }
                 alert('Ocorreu um erro')
             })
+
         },
 
         changeStatus(e){
@@ -116,13 +127,70 @@ const AdmPage = {
             .then(data => {
                 if(data.message === 'success'){
                     const status = data.order.status
+                    const sectList = document.querySelector('.admClients')
+                    const sectAOrder = document.querySelector('.admAllOrders')
+
+                    if(!sectList.classList.contains('none')){
+                        statusSpan.innerHTML = `<b>Status:</b> ${status}`
+                    }
+                    if(!sectAOrder.classList.contains('none')){
+                        this.Events.shAllOrdersList.bind(this)()
+                    }
 
                     statusSpan.innerHTML = `<b>Status:</b> ${status}`
                     return
                 }
                 alert('Deu erro')
             })
+        },
+
+
+
+        shAllOrdersList(){
+            const admAllOrders = document.querySelector('.admAllOrders')
+            const title = document.querySelector('.admMainTitle')
+            const container = document.querySelector('.container')
+            const ul = document.querySelectorAll('.admAOList')
+            
+            title.innerHTML = 'TODOS OS PEDIDOS'
+            for(let i = 0; i < container.children.length; i++){
+                if(i === 0) continue
+                container.children[i].classList.add('none')
+            }
+            ul.forEach(vl => {
+                vl.innerHTML = ''
+            })
+            fetch(`${this.URL_API}/order`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.message === 'success'){
+                        const orders = data.order
+
+                        orders.forEach(async (vl, ix) => {
+                            const namesAndPrices = await this.helpFunctions.productIdsInNamePrice.bind(this)(vl)
+                            console.log(namesAndPrices)
+                            const status = ['Pendente', 'Em preparo', 'Em entrega', 'Entregue', 'Cancelado']
+                            if(typeof namesAndPrices === 'undefined') return alert('Ocorreu um erro1')
+
+                            status.forEach((value, index) => {
+                                if(value === data.order[ix].status){
+                                    ul[index].innerHTML += this.helpFunctions.addClientOrderLi(namesAndPrices, data, ix)
+                                }
+                            })
+
+                            this.cacheSelectors()
+                            this.bindEvents()
+                        })
+                        admAllOrders.classList.remove('none')
+                        return
+                    }
+                    alert('Ocorreu um erro')
+                })
+
+            
+
         }
+
     },
 
     helpFunctions: {
@@ -133,6 +201,7 @@ const AdmPage = {
                 <span class="admClientsData"><b>Email:</b> ${vl.email}</span>
                 <span class="admClientsData"><b>Phone:</b> ${vl.phone}</span>
                 <span class="admClientsData"><b>Address:</b> ${vl.address}</span>
+                <span class="admClientsData"><b>Client Code:</b> <span style="font-size: 14px">${vl._id}</span></span>
                 <span class="clientsOrders" data-id="${vl._id}"></span>
             </li>
             `
@@ -202,7 +271,12 @@ const AdmPage = {
                 </div>
             </li>
             `
-        }
+        },
+
+
+
+
+
     },
 }
 

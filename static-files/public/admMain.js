@@ -17,6 +17,10 @@ const AdmPage = {
         try{
             this.btnShClientsOrders = document.querySelectorAll('.clientsOrders')
         } catch(e){}
+
+        try{
+            this.btnChanStatus = document.querySelectorAll('.btnChangeStatus')
+        } catch(e){}
     },
 
     bindEvents(){
@@ -28,6 +32,12 @@ const AdmPage = {
         try{
             this.btnShClientsOrders.forEach(vl => {
                 vl.onclick = this.Events.shClientsOrders.bind(this)
+            })
+        } catch(e){}
+
+        try{
+            this.btnChanStatus.forEach(vl => {
+                vl.onclick = this.Events.changeStatus.bind(this)
             })
         } catch(e){}
     },
@@ -72,12 +82,45 @@ const AdmPage = {
                         const namesAndPrices = await this.helpFunctions.productIdsInNamePrice.bind(this)(vl)
                         if(typeof namesAndPrices === 'undefined') return alert('Ocorreu um erro')
                         ul.innerHTML += this.helpFunctions.addClientOrderLi(namesAndPrices, data, ix)
+                        this.cacheSelectors()
+                        this.bindEvents()
                     })
 
                     clickedOrders.classList.remove('none')
                     return
                 }
                 alert('Ocorreu um erro')
+            })
+        },
+
+        changeStatus(e){
+            const el = e.target
+            const select = el.previousElementSibling
+            const idSpan = el.parentElement.previousElementSibling
+            const statusSpan = idSpan.previousElementSibling
+            let id = idSpan.innerText.split(': ')
+            id = id[1]
+
+            if(!select.value) return alert('Selecione um valor para alterar')
+
+            fetch(`${this.URL_API}/order/${id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body:JSON.stringify({
+                    status: select.value
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.message === 'success'){
+                    const status = data.order.status
+
+                    statusSpan.innerHTML = `<b>Status:</b> ${status}`
+                    return
+                }
+                alert('Deu erro')
             })
         }
     },
@@ -139,15 +182,23 @@ const AdmPage = {
         
             return `
             <li>
-                <span class="admClickedOrdersList"><b>Product Names:</b> ${name}</span>
-                <span class="admClickedOrdersList"><b>Products Ids:</b> ${ids} </span>
-                <span class="admClickedOrdersList"><b>Price:</b> ${price.toFixed(2)}</span>
-                <span class="admClickedOrdersList"><b>Date:</b> ${data.order[ix].date}</span>
-                <span class="admClickedOrdersList"><b>ClientCode:</b> ${data.order[ix].clientCode} </span>
-                <span class="admClickedOrdersList"><b>Status:</b> ${data.order[ix].status}</span>
-                <span class="admClickedOrdersList"><b>Order ID: </b> ${data.order[ix]._id}</span>
+            <span class="admClickedOrdersList"><b>Product Names:</b> ${name}</span>
+            <span class="admClickedOrdersList"><b>Products Ids:</b> ${ids} </span>
+            <span class="admClickedOrdersList"><b>Price:</b> ${price.toFixed(2)}</span>
+            <span class="admClickedOrdersList"><b>Date:</b> ${data.order[ix].date}</span>
+            <span class="admClickedOrdersList"><b>ClientCode:</b> ${data.order[ix].clientCode} </span>
+            <span class="admClickedOrdersList"><b>Status:</b> ${data.order[ix].status}</span>
+            <span class="admClickedOrdersList"><b>Order ID: </b> ${data.order[ix]._id}</span>
                 <div class="admChangeStatus">
-                    <!--Select para mudar o status-->
+                    <select name="admSelectChangeStatus" id="changeStatus">
+                        <option value="" checked>-- Selecione para alterar --</option>
+                        <option value="Pendente">Pendente</option>
+                        <option value="Em preparo">Em preparo</option>
+                        <option value="Em entrega">Em entrega</option>
+                        <option value="Entregue">Entregue</option>
+                        <option value="Cancelado">Cancelado</option>
+                    </select>
+                    <button class="btnChangeStatus"> Enviar </button>
                 </div>
             </li>
             `

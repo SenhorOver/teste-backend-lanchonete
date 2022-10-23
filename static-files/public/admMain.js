@@ -168,7 +168,6 @@ const AdmPage = {
 
                         orders.forEach(async (vl, ix) => {
                             const namesAndPrices = await this.helpFunctions.productIdsInNamePrice.bind(this)(vl)
-                            console.log(namesAndPrices)
                             const status = ['Pendente', 'Em preparo', 'Em entrega', 'Entregue', 'Cancelado']
                             if(typeof namesAndPrices === 'undefined') return alert('Ocorreu um erro1')
 

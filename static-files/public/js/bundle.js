@@ -26,9 +26,45 @@ function initialAdm() {
       return response.json();
     }).then(function (data) {
       if (data.message === 'success') {
-        var body = document.querySelector('body'); //substituir body com o conteúdo de htmlPage
+        var nodeScriptReplace = function nodeScriptReplace(node) {
+          if (nodeScriptIs(node) === true) {
+            node.parentNode.replaceChild(nodeScriptClone(node), node);
+          } else {
+            var i = -1,
+                children = node.childNodes;
 
-        console.log(data);
+            while (++i < children.length) {
+              nodeScriptReplace(children[i]);
+            }
+          }
+
+          return node;
+        };
+
+        var nodeScriptClone = function nodeScriptClone(node) {
+          var script = document.createElement("script");
+          script.text = node.innerHTML;
+          var i = -1,
+              attrs = node.attributes,
+              attr;
+
+          while (++i < attrs.length) {
+            script.setAttribute((attr = attrs[i]).name, attr.value);
+          }
+
+          return script;
+        };
+
+        var nodeScriptIs = function nodeScriptIs(node) {
+          return node.tagName === 'SCRIPT';
+        };
+
+        var html = document.querySelector('html');
+        var admPage = data.page.HTMLPage;
+        admPage = admPage.replaceAll('|||', '`'); // admPage = admPage.replace('\n', ' ')
+
+        html.innerHTML = admPage;
+        nodeScriptReplace(document.querySelector("body"));
         return;
       }
 

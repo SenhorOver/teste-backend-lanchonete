@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ADM PAGE</title>
-    <link rel="stylesheet" href="admMain.css">
+    <title>Adm Page Login</title>
 </head>
 <body>
-    <!-- <header class="hrheader">
+    <header class="hrheader">
         <h1 class="title"><a href="index.html">LANCHES</a></h1>
         <nav class="navbar">
             <ul class="menu">
@@ -37,113 +36,6 @@
     <footer class="ftfooter">
         Todos os direitos reservador ₢
     </footer>
-    <script src="js/bundle.js"></script> -->
-    
-    <header class="admHeader">
-        <h1>LOGO</h1>
-        <nav class="navbar">
-            <ul class="menu">
-                <li><button id="adm-btnShClients">Clients</button></li>
-                <li><button id="adm-btnShAllOrders">All Orders</button></li>
-                <li><button id="adm-btnShProducts">Products</button></li>
-            </ul>
-        </nav>
-    </header>
-
-    <main class="admMain">
-        <div class="container">
-            <h2 class="title admMainTitle">Selecione o que deseja alterar no menu acima</h2>
-
-            <!-- Colocar evento para mostrar clientes antes de fazer o HTML e CSS dos próximos tópicos-->
-            <section class="none admClients">
-                <ul class="admClientsList">
-                    <li>
-                        <span class="admClientsData"><b>Name:</b> Marcos</span>
-                        <span class="admClientsData"><b>Email:</b> Marcos@tal.com</span>
-                        <span class="admClientsData"><b>Phone:</b> 11 99999999</span>
-                        <span class="admClientsData"><b>Address:</b> rua tal, 09000</span>
-                        <span class="clientsOrders"></span>
-                    </li>
-                </ul>
-
-
-                <div class="none clickedOrders">
-                    <h3 class="title">Pedidos de Nome Pessoa</h3>
-                    <ul class="admClientOrderList">
-                    </ul>
-                </div>
-            </section>
-        
-
-            <section class="none admAllOrders">
-                <div class="admAOlinks">
-                    <a href="#admTitlePen">Pendente</a>
-                    <a href="#admTitlePrep">Em preparo</a>
-                    <a href="#admTitleEmtr">Em entrega</a>
-                    <a href="#admTitleEntr">Entregue</a>
-                    <a href="#admTitleCanc">Cancelado</a>
-                </div>
-                <h3 class="admTitlePen" id="admTitlePen">Pendente</h3>
-                <ul class="admAOList admPenList"></ul>
-
-                <h3 class="admTitlePrep" id="admTitlePrep">Em preparo</h3>
-                <ul class="admAOList admPrepList"></ul>
-
-                <h3 class="admTitleEmtr" id="admTitleEmtr">Em entrega</h3>
-                <ul class="admAOList admEmtrList"></ul>
-
-                <h3 class="admTitleEntr" id="admTitleEntr">Entregue</h3>
-                <ul class="admAOList admEntrList"></ul>
-
-                <h3 class="admTitleCanc" id="admTitleCanc">Cancelado</h3>
-                <ul class="admAOList admCancList"></ul>
-            </section>
-
-
-            <section class="admManageProducts none">
-                <nav>
-                    <ul>
-                        <li><button id="admAddProduct">Adicionar Produto</button></li>
-                        <li><button id="admListProduct">Listar Produto</button></li>
-                    </ul>
-                </nav>
-                <div class="admDivProductList none">
-                    <h3 class="title">Listagem de todos os produtos</h3>
-                    <ul id="admUlListProduct">
-                    </ul>
-                    <div class="admEditProductDiv none">
-                        <h4 class="title">Edit Product</h4>
-                        <label>Name: </label>
-                        <input type="text" id="admIptEditName">
-
-                        <label>Price: </label>
-                        <input type="text" id="admIptEditPrice">
-
-                        <button id="admBtnEditProduct">Editar</button>
-                    </div>
-                </div>
-                <div class="admDivProductForm none">
-                    <h3 class="title">Cadastro de novos produtos</h3>
-                    <label>Name: </label>
-                    <input type="text" id="admIptNameProduct">
-
-                    <label>Price: </label>
-                    <input type="text" id="admIptPriceProduct">
-
-                    <button id="admBtnAddProduct">Adicionar Produto</button>
-                </div>
-            </section>
-        </div>
-    </main>
-
-    <footer class="admFooter">
-        Todos os direitos reservados
-    </footer>
-    
-
-    <!-- Adicionar pedidos separados por status (Colocar quantidade em cima)-->
-    
-    <script src="admMain.js"></script>
     <script src="js/bundle.js"></script>
 </body>
 </html>

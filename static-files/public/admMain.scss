@@ -204,13 +204,18 @@ main.admMain{
 
             div.admDivProductList{
                 padding: 25px 0 0;
+                h3.title{
+                    padding: 15px 0 35px;
+                    font-size: 1.7em;
+                    text-align: center;
+                }
                 ul{
                     display: flex;
                     list-style: none;
                     flex-wrap: wrap;
                     justify-content: space-between;
                     li{
-                    width: 22%;
+                    width: 23%;
                     border: 1px solid black;
                     border-radius: 10px;
                     padding: 15px;
@@ -262,7 +267,7 @@ main.admMain{
                                 position: absolute;
                                 color: white;
                                 top: 15%;
-                                left: 31%;
+                                left: 30%;
                             }
 
                             &:active{
@@ -270,6 +275,35 @@ main.admMain{
                             }
                         }
                     }
+                }
+            }
+
+            div.admDivProductForm{
+                text-align: center;
+                padding: 25px 0 0;
+                h3.title{
+                    padding: 15px 0 35px;
+                    font-size: 1.7em;
+                }
+                label{
+                    display:block;
+                    font-weight: bold;
+                }
+
+                input{
+                    padding: 7px;
+                    margin: 5px 0 15px;
+                    font-size: 1em;
+                    width: 50%;
+                }
+
+                button{
+                    display: block;
+                    padding: 10px;
+                    font-size: 1em;
+                    width: 50%;
+                    margin: auto;
+                    margin-top: 15px;
                 }
             }
         }

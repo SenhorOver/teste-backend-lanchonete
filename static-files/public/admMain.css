@@ -192,6 +192,11 @@ main.admMain div.container section.admManageProducts nav ul li button {
 main.admMain div.container section.admManageProducts div.admDivProductList {
   padding: 25px 0 0;
 }
+main.admMain div.container section.admManageProducts div.admDivProductList h3.title {
+  padding: 15px 0 35px;
+  font-size: 1.7em;
+  text-align: center;
+}
 main.admMain div.container section.admManageProducts div.admDivProductList ul {
   display: flex;
   list-style: none;
@@ -199,7 +204,7 @@ main.admMain div.container section.admManageProducts div.admDivProductList ul {
   justify-content: space-between;
 }
 main.admMain div.container section.admManageProducts div.admDivProductList ul li {
-  width: 22%;
+  width: 23%;
   border: 1px solid black;
   border-radius: 10px;
   padding: 15px;
@@ -248,10 +253,36 @@ main.admMain div.container section.admManageProducts div.admDivProductList ul li
   position: absolute;
   color: white;
   top: 15%;
-  left: 31%;
+  left: 30%;
 }
 main.admMain div.container section.admManageProducts div.admDivProductList ul li div.admRemoveProduct:active {
   background-color: black;
+}
+main.admMain div.container section.admManageProducts div.admDivProductForm {
+  text-align: center;
+  padding: 25px 0 0;
+}
+main.admMain div.container section.admManageProducts div.admDivProductForm h3.title {
+  padding: 15px 0 35px;
+  font-size: 1.7em;
+}
+main.admMain div.container section.admManageProducts div.admDivProductForm label {
+  display: block;
+  font-weight: bold;
+}
+main.admMain div.container section.admManageProducts div.admDivProductForm input {
+  padding: 7px;
+  margin: 5px 0 15px;
+  font-size: 1em;
+  width: 50%;
+}
+main.admMain div.container section.admManageProducts div.admDivProductForm button {
+  display: block;
+  padding: 10px;
+  font-size: 1em;
+  width: 50%;
+  margin: auto;
+  margin-top: 15px;
 }
 
 footer.admFooter {

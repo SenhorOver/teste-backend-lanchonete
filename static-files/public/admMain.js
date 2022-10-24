@@ -21,13 +21,29 @@ const AdmPage = {
         try{
             this.btnChanStatus = document.querySelectorAll('.btnChangeStatus')
         } catch(e){}
+
+
+        //Product List + Edit/Remove/Add
+        this.btnAddProduct = document.querySelector('#admAddProduct')
+        this.btnListProduct = document.querySelector('#admListProduct')
+
+
+        this.btnRegisterProduct = document.querySelector('#admBtnAddProduct')
+        this.btnEditProduct = document.querySelector('#admBtnEditProduct')
+
+        try{
+            this.admBtnEditProduct = document.querySelectorAll('.admEditProduct')
+        } catch(e){}
+        try{
+            this.admBtnRemoveProduct = document.querySelectorAll('.admRemoveProduct')
+        } catch(e){}
     },
 
     bindEvents(){
         //Menu buttons
         this.btnShClients.onclick = this.Events.shClientsList.bind(this)
         this.btnShAOrders.onclick = this.Events.shAllOrdersList.bind(this)
-
+        this.btnShProducts.onclick = this.Events.shProducts.bind(this)
 
         //One client orders list
         try{
@@ -41,6 +57,28 @@ const AdmPage = {
                 vl.onclick = this.Events.changeStatus.bind(this)
             })
         } catch(e){}
+
+
+
+        //Products Events
+        this.btnAddProduct.onclick = this.Events.shAddProductDiv.bind(this)
+        this.btnListProduct.onclick = this.Events.shProductsList.bind(this)
+
+
+        this.btnRegisterProduct.onclick = this.Events.addProduct.bind(this)
+        this.btnEditProduct.onclick = this.Events.confirmEditProduct.bind(this)
+        
+        try{
+            this.admBtnRemoveProduct.forEach(vl => {
+                vl.onclick = this.Events.removeProduct.bind(this)
+            })
+        } catch(e){}
+        try{
+            this.admBtnEditProduct.forEach(vl => {
+                vl.onclick = this.Events.editProduct.bind(this)
+            })
+        } catch(e){}
+        
     },
 
     Events: {
@@ -188,6 +226,163 @@ const AdmPage = {
 
             
 
+        },
+
+
+
+
+
+
+        shProducts(){
+            const title = document.querySelector('.admMainTitle')
+            const container = document.querySelector('.container')
+            
+            title.innerHTML = 'O que deseja com os produtos?    '
+            for(let i = 0; i < container.children.length; i++){
+                if(i === 0) continue
+                container.children[i].classList.add('none')
+            } 
+
+            container.children[3].classList.remove('none')
+        },
+
+        shAddProductDiv(){
+            const formDiv = document.querySelector('.admDivProductForm')
+            const listDiv = document.querySelector('.admDivProductList')
+
+            listDiv.classList.add('none')
+            formDiv.classList.remove('none')
+        },
+
+        shProductsList(){
+            const formDiv = document.querySelector('.admDivProductForm')
+            const listDiv = document.querySelector('.admDivProductList')
+            const ul = document.querySelector('#admUlListProduct')
+
+            formDiv.classList.add('none')
+            listDiv.classList.remove('none')
+
+            fetch(`${this.URL_API}/product`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.message === 'success'){
+                        ul.innerHTML = ''
+                        data.product.forEach(vl => {
+                            ul.innerHTML += this.helpFunctions.addProductLi.bind(this)(vl)
+                        })
+                        this.cacheSelectors()
+                        this.bindEvents()                        
+                        return
+                    }
+                    alert('Deu erro')
+                })
+        },
+
+
+        addProduct(){
+            const nameIpt = document.querySelector('#admIptNameProduct')
+            const priceIpt = document.querySelector('#admIptPriceProduct')
+
+            const name = nameIpt.value
+            const price = Number(priceIpt.value)
+
+            fetch(`${this.URL_API}/product`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name,
+                    price
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if(data.message === 'success'){
+                    nameIpt.value = ''
+                    priceIpt.value = ''
+                    alert('sucesso')
+                    return
+                }
+                alert('deu erro')
+            })
+        },
+
+
+        editProduct(e){
+            const editProductDiv = document.querySelector('.admEditProductDiv')
+            const id = e.target.dataset.id
+            const nameIpt = document.querySelector('#admIptEditName')
+            const priceIpt = document.querySelector('#admIptEditPrice')
+
+            editProductDiv.classList.remove('none')
+            editProductDiv.setAttribute('data-id', id)
+
+            fetch(`${this.URL_API}/product/${id}`)
+                .then(response => response.json())
+                .then(data => {
+                    if(data.message === 'success'){
+                        console.log(data)
+                        nameIpt.value = data.product[0].name
+                        priceIpt.value = data.product[0].price
+                        return
+                    }
+                    alert('deu erro')
+                })
+
+            this.cacheSelectors()
+            this.bindEvents()
+
+        },
+
+        removeProduct(e){
+            const el = e.target
+            const id = el.dataset.id
+
+            fetch(`${this.URL_API}/product/${id}`, {
+                method: 'DELETE',
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.message === 'success'){
+                        this.Events.shProductsList.bind(this)()
+                        alert('removido com sucesso')
+                        return
+                    }
+                    alert('ocorreu um erro')
+                })
+                
+        },
+
+        confirmEditProduct(e){
+            const el = e.target
+            const div = el.parentElement
+            const id = div.dataset.id
+
+            const nameIpt = document.querySelector('#admIptEditName')
+            const priceIpt = document.querySelector('#admIptEditPrice')
+
+            const name = nameIpt.value
+            const price = Number(priceIpt.value)
+
+            fetch(`${this.URL_API}/product/${id}`, {
+                method:'PUT',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify({
+                    name,
+                    price
+                })
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.message === 'success'){
+                        alert('Editado com sucesso')
+                        div.classList.add('none')
+                        this.Events.shProductsList.bind(this)()
+                        return
+                    }
+                    alert('Ocorreu um erro')
+                })
         }
 
     },
@@ -274,7 +469,17 @@ const AdmPage = {
 
 
 
-
+        addProductLi(vl){
+            return `
+            <li>
+                <span><b>Id:</b> <p style="font-size: 14px; display: inline">${vl._id}</p></span>
+                <span><b>Name:</b> ${vl.name}</span>
+                <span><b>Price (R$):</b> ${vl.price}</span>
+                <div class="admEditProduct" data-id="${vl._id}"></div>
+                <div class="admRemoveProduct" data-id="${vl._id}"></div>
+            </li>
+            `
+        }
 
     },
 }

@@ -258,6 +258,33 @@ main.admMain div.container section.admManageProducts div.admDivProductList ul li
 main.admMain div.container section.admManageProducts div.admDivProductList ul li div.admRemoveProduct:active {
   background-color: black;
 }
+main.admMain div.container section.admManageProducts div.admDivProductList div.admEditProductDiv {
+  padding-top: 25px;
+  text-align: center;
+}
+main.admMain div.container section.admManageProducts div.admDivProductList div.admEditProductDiv h4.title {
+  font-size: 1.7em;
+  padding: 15px 0 25px;
+}
+main.admMain div.container section.admManageProducts div.admDivProductList div.admEditProductDiv label {
+  display: block;
+  font-weight: bold;
+}
+main.admMain div.container section.admManageProducts div.admDivProductList div.admEditProductDiv input {
+  padding: 7px;
+  margin: 10px 0;
+  font-size: 1em;
+  width: 50%;
+}
+main.admMain div.container section.admManageProducts div.admDivProductList div.admEditProductDiv button {
+  display: block;
+  padding: 7px;
+  font-size: 1em;
+  width: 50%;
+  margin: auto;
+  margin-top: 15px;
+  cursor: pointer;
+}
 main.admMain div.container section.admManageProducts div.admDivProductForm {
   text-align: center;
   padding: 25px 0 0;
@@ -283,6 +310,7 @@ main.admMain div.container section.admManageProducts div.admDivProductForm butto
   width: 50%;
   margin: auto;
   margin-top: 15px;
+  cursor: pointer;
 }
 
 footer.admFooter {

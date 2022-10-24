@@ -100,26 +100,29 @@
             </section>
 
 
-            <section class="admManageProducts">
+            <section class="admManageProducts none">
                 <nav>
                     <ul>
                         <li><button id="admAddProduct">Adicionar Produto</button></li>
                         <li><button id="admListProduct">Listar Produto</button></li>
                     </ul>
                 </nav>
-                <div class="admDivProductList ">
+                <div class="admDivProductList none">
                     <h3 class="title">Listagem de todos os produtos</h3>
-                    <ul>
-                        <li>
-                            <span><b>Id:</b> 534573498573489</span>
-                            <span><b>Name:</b> Tal</span>
-                            <span><b>Price:</b> 8999</span>
-                            <div class="admEditProduct"></div>
-                            <div class="admRemoveProduct"></div>
-                        </li>
+                    <ul id="admUlListProduct">
                     </ul>
+                    <div class="admEditProductDiv none">
+                        <h4 class="title">Edit Product</h4>
+                        <label>Name: </label>
+                        <input type="text" id="admIptEditName">
+
+                        <label>Price: </label>
+                        <input type="text" id="admIptEditPrice">
+
+                        <button id="admBtnEditProduct">Editar</button>
+                    </div>
                 </div>
-                <div class="admDivProductForm">
+                <div class="admDivProductForm none">
                     <h3 class="title">Cadastro de novos produtos</h3>
                     <label>Name: </label>
                     <input type="text" id="admIptNameProduct">

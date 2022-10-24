@@ -276,6 +276,36 @@ main.admMain{
                         }
                     }
                 }
+
+                div.admEditProductDiv{
+                    padding-top: 25px;
+                    text-align: center;
+                    h4.title{
+                        font-size: 1.7em;
+                        padding: 15px 0 25px;
+                    }
+                    label{
+                        display: block;
+                        font-weight: bold;
+                    }
+
+                    input{
+                        padding: 7px;
+                        margin: 10px 0;
+                        font-size: 1em;
+                        width: 50%;
+                    }
+
+                    button{
+                        display: block;
+                        padding: 7px;
+                        font-size: 1em;
+                        width: 50%;
+                        margin: auto;
+                        margin-top: 15px;
+                        cursor: pointer;
+                    }
+                }
             }
 
             div.admDivProductForm{
@@ -304,6 +334,7 @@ main.admMain{
                     width: 50%;
                     margin: auto;
                     margin-top: 15px;
+                    cursor: pointer;
                 }
             }
         }
